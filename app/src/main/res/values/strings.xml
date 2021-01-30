@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">WorkoutWarrior</string>
+
+    <!-- Equipment Page -->
+    <string name="EquipmentCapeText">Cape</string>
+    <string name="EquipmentHeadText">Head</string>
+    <string name="EquipmentAccessoryText">Accessory</string>
+    <string name="EquipmentLeftHandText">Left Hand</string>
+    <string name="EquipmentChestText">Chest</string>
+    <string name="EquipmentRightHandText">Right hand</string>
+    <string name="EquipmentLegsText">Legs</string>
+    <string name="EquipmentFeetText">Feet</string>
+    <string name="EquipmentStatsHeaderText">Equipment Stats</string>
+    <string name="EquipmentStatsDummyText">Stat 0: -4; Stat 1: -4</string>
+
 </resources>
