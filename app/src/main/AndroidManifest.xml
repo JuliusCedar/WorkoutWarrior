@@ -19,6 +19,7 @@
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".WorkoutActivity" />
         <activity android:name=".EquipmentActivity" />
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>
