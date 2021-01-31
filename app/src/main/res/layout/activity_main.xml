@@ -28,4 +28,11 @@
         android:layout_weight="1"
         android:text="Workouts"></Button>
 
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="Login"></Button>
+
 </LinearLayout>
