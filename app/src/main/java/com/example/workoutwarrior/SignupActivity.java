@@ -1,18 +1,21 @@
 package com.example.workoutwarrior;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SignupActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent myIntent = new Intent(this, LoginActivity.class);
+        setContentView(R.layout.signup);
+    }
+
+    public void signup(View v){
+        Intent myIntent = new Intent(this, ProfileActivity.class);
         this.startActivity(myIntent);
     }
 }
