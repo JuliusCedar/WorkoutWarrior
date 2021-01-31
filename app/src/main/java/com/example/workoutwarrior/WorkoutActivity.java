@@ -13,11 +13,17 @@ public class WorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.list_of_workouts);
     }
 
+    /* Open Equipment
+     * Changes view to the equipment screen
+     */
     public void openEquipment(){
         Intent myIntent = new Intent(this, EquipmentActivity.class);
         this.startActivity(myIntent);
     }
 
+    /* Open Profile
+     * Changes view to the profile screen
+     */
     public void openProfile(){
         Intent myIntent = new Intent(this, ProfileActivity.class);
         this.startActivity(myIntent);
