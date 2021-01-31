@@ -20,7 +20,10 @@
         <activity android:name=".WorkoutActivity" />
         <activity android:name=".EquipmentActivity" />
         <activity android:name=".LoginActivity" />
+<<<<<<< HEAD
         <activity android:name=".SignupActivity" />
+=======
+>>>>>>> 96c512c382c3b4ece0232a3c1bd45d819a445e3b
     </application>
 
 </manifest>
