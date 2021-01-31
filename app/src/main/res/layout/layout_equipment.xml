@@ -5,14 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_grey"
     tools:context=".EquipmentActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/SelectEquipmentLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/off_white"
+        android:background="@color/dark_grey"
         android:padding="20dp"
+        android:layout_margin="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,6 +25,7 @@
             android:layout_height="100dp"
             android:text="@string/EquipmentCapeText"
             android:textSize="12sp"
+            android:backgroundTint="@color/blue_grey"
             app:layout_constraintEnd_toStartOf="@id/EquipmentHeadButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,6 +36,7 @@
             android:layout_height="100dp"
             android:text="@string/EquipmentHeadText"
             android:textSize="12sp"
+            android:backgroundTint="@color/blue_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +47,7 @@
             android:layout_height="100dp"
             android:text="@string/EquipmentAccessoryText"
             android:textSize="10sp"
+            android:backgroundTint="@color/blue_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/EquipmentHeadButton"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +58,7 @@
             android:layout_height="100dp"
             android:text="@string/EquipmentLeftHandText"
             android:textSize="12sp"
+            android:backgroundTint="@color/blue_grey"
             app:layout_constraintStart_toStartOf="@id/EquipmentCapeButton"
             app:layout_constraintTop_toBottomOf="@id/EquipmentCapeButton" />
 
@@ -62,6 +68,7 @@
             android:layout_height="100dp"
             android:text="@string/EquipmentChestText"
             android:textSize="12sp"
+            android:backgroundTint="@color/blue_grey"
             app:layout_constraintStart_toStartOf="@id/EquipmentHeadButton"
             app:layout_constraintTop_toBottomOf="@id/EquipmentHeadButton" />
 
@@ -71,6 +78,7 @@
             android:layout_height="100dp"
             android:text="@string/EquipmentRightHandText"
             android:textSize="12sp"
+            android:backgroundTint="@color/blue_grey"
             app:layout_constraintStart_toStartOf="@id/EquipmentAccessoryButton"
             app:layout_constraintTop_toBottomOf="@id/EquipmentAccessoryButton" />
 
@@ -80,6 +88,7 @@
             android:layout_height="100dp"
             android:text="@string/EquipmentLegsText"
             android:textSize="10sp"
+            android:backgroundTint="@color/blue_grey"
             app:layout_constraintStart_toStartOf="@id/EquipmentChestButton"
             app:layout_constraintTop_toBottomOf="@id/EquipmentChestButton" />
 
@@ -89,6 +98,7 @@
             android:layout_height="100dp"
             android:text="@string/EquipmentFeetText"
             android:textSize="12sp"
+            android:backgroundTint="@color/blue_grey"
             app:layout_constraintStart_toStartOf="@id/EquipmentLegsButton"
             app:layout_constraintTop_toBottomOf="@id/EquipmentLegsButton" />
 
@@ -99,6 +109,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="10dp"
+        android:background="@color/dark_blue_grey"
+        android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,6 +122,7 @@
             android:layout_height="wrap_content"
             android:text="@string/EquipmentStatsHeaderText"
             android:textSize="20sp"
+            android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -120,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/EquipmentStatsDummyText"
+            android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/EquipmentStatsHeaderText" />
