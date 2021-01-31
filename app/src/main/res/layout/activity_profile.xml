@@ -215,7 +215,8 @@
             android:backgroundTint="@color/light_grey"
             android:text="Log Out"
             android:textSize="13dp"
-            android:textColor="@color/dark_grey"></Button>
+            android:textColor="@color/dark_grey"
+            android:onClick="logOut"></Button>
 
     </LinearLayout>
 
