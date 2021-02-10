@@ -101,28 +101,28 @@ public class DatabaseManager extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             playerStats.put("name", profileInfo[0]);
             playerStats.put("class", profileInfo[1]);
-            playerStats.put("level", cursor.getString(1));
-            playerStats.put("strength", cursor.getString(2));
-            playerStats.put("dexterity", cursor.getString(3));
-            playerStats.put("constitution", cursor.getString(4));
+            playerStats.put("level", cursor.getInt(1));
+            playerStats.put("strength", cursor.getInt(2));
+            playerStats.put("dexterity", cursor.getInt(3));
+            playerStats.put("constitution", cursor.getInt(4));
         }
 
         return playerStats;
     }
 
-    /* Returns a user's password to be compared during login.
-     */
-    public String selectPlayerByName(String name) {
-        String password = "";
-        String getUsernamePassword = "select * from " + PROFILE_TABLE + " where name = '" + name + "'";
+    public int getPlayerId(String uName, String password){
+        String idQuery = "select * from " + PROFILE_TABLE + " where name = '" + uName + "' and password = '" + password + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(getUsernamePassword, null);
+        Cursor cursor = db.rawQuery(idQuery, null);
+
+        int id = -1;
 
         if (cursor.moveToFirst()) {
-            password = cursor.getString(2);
+            id = cursor.getInt(cursor.getColumnIndex("ID"));
         }
-        return password;
+
+        return id;
     }
 
     /* Returns a players name and class in an array of Strings.

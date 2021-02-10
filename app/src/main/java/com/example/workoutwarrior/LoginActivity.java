@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
 
+import java.util.Dictionary;
+
 /* LoginActivity
  * Manages login screen
  */
@@ -33,12 +35,14 @@ public class LoginActivity extends AppCompatActivity {
         TextView badLogin = (TextView) findViewById(R.id.bad_login);
 
         String username = usernameElement.getText().toString();
-        String enteredPassword = passwordElement.getText().toString();
+        String password = passwordElement.getText().toString();
 
-        String password = dbManager.selectPlayerByName(username);
+        int playerId = dbManager.getPlayerId(username, password);
 
-        if (password.equals(enteredPassword)) {
-            Intent myIntent = new Intent(this, MainActivity.class);
+        if (playerId != -1) {
+            Dictionary currentPlayer = dbManager.selectById(playerId);
+            Profile.loadProfile((String)currentPlayer.get("name"), (int)currentPlayer.get("level"), (String)currentPlayer.get("class"), (int)currentPlayer.get("strength"), (int)currentPlayer.get("dexterity"), (int)currentPlayer.get("constitution"));
+            Intent myIntent = new Intent(this, ProfileActivity.class);
             this.startActivity(myIntent);
         } else {
             badLogin.setVisibility(View.VISIBLE);
