@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_grey"
     tools:context=".WorkoutActivity">
 
     <TextView
@@ -22,39 +23,32 @@
         tools:layout_editor_absoluteX="176dp"
         tools:layout_editor_absoluteY="231dp">
         <Button
-            android:text="stength workout \n grandma ellie needs some help chopping some logs"
-            android:textColor="@color/black"
+            android:text="Strength Workout \n Help Grandma Ellie chop logs"
+            android:textColor="@color/red"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/red"></Button>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:backgroundTint="@color/black"
-            ></TextView>
+            android:backgroundTint="@color/dark_blue_grey"></Button>
+
         <Button
-            android:text="running workout \n run down to old farmer jankens place \n and collect some wheat "
-            android:textColor="@color/black"
+            android:text="Running Workout \n Run to Farmer Janken and bring back some wheat"
+            android:textColor="@color/green"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/green"></Button>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:backgroundTint="@color/black"></TextView>
+            android:backgroundTint="@color/dark_blue_grey"></Button>
+
         <Button
-            android:text="aerobic workout \n an old man down at the *pub said \n a ghoul near by was scaring people you should take care of it"
-            android:textColor="@color/black"
+            android:text="Fight a ghoul thats scaring off customers at the pub"
+            android:textColor="@color/teal_200"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/blue"></Button>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:backgroundTint="@color/black"></TextView>
+            android:backgroundTint="@color/dark_blue_grey"></Button>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

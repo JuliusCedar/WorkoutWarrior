@@ -14,19 +14,19 @@
         >
 
         <TextView
-            android:id="@+id/email_text"
+            android:id="@+id/username_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Email"></TextView>
+            android:text="Username"></TextView>
 
         <EditText
-            android:id="@+id/email_login"
+            android:id="@+id/username_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/password_text"
@@ -71,6 +71,28 @@
             android:onClick="signup"
             android:text="Sign up" />
 
+        <TextView
+            android:id="@+id/passwords_no_match"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Passwords do not match"
+            android:textSize="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:textColor="#FF0000" >
+        </TextView>
+        <TextView
+            android:id="@+id/no_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please Fill In All Fields"
+            android:textSize="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:textColor="#FF0000" >
+        </TextView>
     </LinearLayout>
 
 
