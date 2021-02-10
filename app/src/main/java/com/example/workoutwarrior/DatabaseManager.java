@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import android.util.Log;
 
 public class DatabaseManager extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "warriorDB";
@@ -27,7 +28,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     private void createProfileTable(SQLiteDatabase db) {
         String createProfileTable = "create table " + PROFILE_TABLE + " ( ID integer primary key, ";
-        createProfileTable += ", name text, password text, class text)";
+        createProfileTable += " name text, password text, class text)";
         db.execSQL(createProfileTable);
     }
 
@@ -45,22 +46,22 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     /* Inserts a new row into the profile table.
      */
-    public void insertIntoProfile(Profile profile, int id, String password) {
+    public void insertIntoProfile(int id, String username, String password, String pClass) {
         SQLiteDatabase db = this.getWritableDatabase();
         String insert = "insert into " + PROFILE_TABLE;
-        insert += " values( " + id + ", " + profile.getName() + ", " + password;
-        insert += ", " + profile.getClass() +  ")";
+        insert += " values('" + id + "', '" + username + "', '" + password;
+        insert += "', '" + pClass +  "')";
         db.execSQL(insert);
         db.close();
     }
 
     /* Inserts a new row into the stats table.
      */
-    public void insertIntoStats(Profile profile, int id) {
+    public void insertIntoStats(int level, int strength, int dexterity, int constitution, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String insert = "insert into " + PLAYER_STATS;
-        insert += " values( " + id + ", " + profile.getLevel() + ", " + profile.getStr();
-        insert +=  ", " + profile.getDex() + ", " + profile.getCon() + ")";
+        insert += " values('" + id + "', '" + level + "', '" + strength;
+        insert +=  "', '" + dexterity + "', '" + constitution + "')";
         db.execSQL(insert);
         db.close();
     }
@@ -70,7 +71,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
      */
     public void updateStatsById(int id, Profile profile) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String update = "update " + PLAYER_STATS;
         update += " set level = '" + profile.getLevel() + "', ";
         update += "strength = '" + profile.getStr() + "', ";
@@ -108,6 +108,21 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
 
         return playerStats;
+    }
+
+    /* Returns a user's password to be compared during login.
+     */
+    public String selectPlayerByName(String name) {
+        String password = "";
+        String getUsernamePassword = "select * from " + PROFILE_TABLE + " where name = '" + name + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(getUsernamePassword, null);
+
+        if (cursor.moveToFirst()) {
+            password = cursor.getString(2);
+        }
+        return password;
     }
 
     /* Returns a players name and class in an array of Strings.
