@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = dbManager.selectPlayerByName(username);
 
         if (password.equals(enteredPassword)) {
-            Intent myIntent = new Intent(this, ProfileActivity.class);
+            Intent myIntent = new Intent(this, MainActivity.class);
             this.startActivity(myIntent);
         } else {
             badLogin.setVisibility(View.VISIBLE);

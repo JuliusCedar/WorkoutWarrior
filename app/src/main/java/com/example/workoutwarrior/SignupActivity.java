@@ -40,7 +40,7 @@ public class SignupActivity extends AppCompatActivity {
             noContent.setVisibility(View.VISIBLE);
         } else if (password1.equals(password2)) {
             addNewUser(username, password1);
-            Intent myIntent = new Intent(this, ProfileActivity.class);
+            Intent myIntent = new Intent(this, MainActivity.class);
             this.startActivity(myIntent);
         } else {
             passwordsDontMatch.setVisibility(View.VISIBLE);
