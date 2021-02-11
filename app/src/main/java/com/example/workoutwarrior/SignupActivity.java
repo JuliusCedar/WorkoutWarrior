@@ -40,8 +40,8 @@ public class SignupActivity extends AppCompatActivity {
             noContent.setVisibility(View.VISIBLE);
         } else if (password1.equals(password2)) {
             addNewUser(username, password1);
-            Intent myIntent = new Intent(this, MainActivity.class);
-            this.startActivity(myIntent);
+            // return to main activity, TODO: notify did succeed?
+            finish();
         } else {
             passwordsDontMatch.setVisibility(View.VISIBLE);
             password1Element.setText("");

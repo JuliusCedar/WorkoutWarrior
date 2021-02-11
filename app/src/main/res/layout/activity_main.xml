@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="@color/blue_grey"
     android:orientation="vertical">
 
     <FrameLayout
@@ -25,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/blue"
             android:onClick="ShowProfile"
             android:text="Profile"></Button>
 
@@ -33,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/blue"
             android:onClick="ShowEquip"
             android:text="Equipment"></Button>
 
@@ -41,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/blue"
             android:onClick="ShowWorkouts"
             android:text="Workouts"></Button>
 
@@ -49,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/blue"
             android:onClick="Login"
             android:text="Login"></Button>
     </LinearLayout>
