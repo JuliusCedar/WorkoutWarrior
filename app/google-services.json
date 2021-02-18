@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "590124368757",
+    "project_id": "workoutwarrior",
+    "storage_bucket": "workoutwarrior.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590124368757:android:9e0aac53c45719cfd4c93c",
+        "android_client_info": {
+          "package_name": "com.example.workoutwarrior"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590124368757-tsfagkqe99vo6n6pspeav0bvqmcnhof7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa9750TRMTHWFlxENOtjUc0UwP7oFFK1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590124368757-tsfagkqe99vo6n6pspeav0bvqmcnhof7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
