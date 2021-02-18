@@ -21,7 +21,7 @@ public class Profile {
     }
 
     //update the profile to a new profile
-    public static void loadProfile(String name, int level, String pClass, int str, int dex, int con){
+    public void loadProfile(String name, int level, String pClass, int str, int dex, int con){
         INSTANCE.name = name;
         INSTANCE.level = level;
         INSTANCE.playerClass = pClass;

@@ -41,8 +41,10 @@ public class LoginActivity extends AppCompatActivity {
 
         if (playerId != -1) {
             Dictionary currentPlayer = dbManager.selectById(playerId);
-            Profile.loadProfile((String)currentPlayer.get("name"), (int)currentPlayer.get("level"), (String)currentPlayer.get("class"), (int)currentPlayer.get("strength"), (int)currentPlayer.get("dexterity"), (int)currentPlayer.get("constitution"));
+            Profile.getProfile().loadProfile((String)currentPlayer.get("name"), (int)currentPlayer.get("level"), (String)currentPlayer.get("class"), (int)currentPlayer.get("strength"), (int)currentPlayer.get("dexterity"), (int)currentPlayer.get("constitution"));
             // return to main activity, TODO: notify did succeed?
+            Intent myIntent = new Intent(this, MainActivity.class);
+            this.startActivity(myIntent);
             finish();
         } else {
             badLogin.setVisibility(View.VISIBLE);

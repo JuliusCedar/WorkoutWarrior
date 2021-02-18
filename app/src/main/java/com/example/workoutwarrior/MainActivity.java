@@ -14,12 +14,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Profile.getProfile();
-
-        // Shows login interface
-        Intent myIntent = new Intent(this, LoginActivity.class);
-        this.startActivity(myIntent);
-
         // temp show profile, TODO: it should be different if ^ fails
         ShowProfile(null);
     }
@@ -41,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // takes the user back to the login activity
-    public void Login(View view) {
-        // TODO: Logout? This allows the user to just press back to come back here
+    public void Logout(View view) {
+        // TODO: Start activity needs to be changed to finish the main activity
 
         // Shows login interface
         Intent myIntent = new Intent(this, LoginActivity.class);
