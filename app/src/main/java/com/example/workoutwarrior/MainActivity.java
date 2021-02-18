@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
         // TODO: Start activity needs to be changed to finish the main activity
 
         // Shows login interface
-        Intent myIntent = new Intent(this, LoginActivity.class);
-        this.startActivity(myIntent);
+        finish();
+        //Intent myIntent = new Intent(this, LoginActivity.class);
+        //this.startActivity(myIntent);
 
     }
 }

@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
             // return to main activity, TODO: notify did succeed?
             Intent myIntent = new Intent(this, MainActivity.class);
             this.startActivity(myIntent);
-            finish();
         } else {
             badLogin.setVisibility(View.VISIBLE);
         }

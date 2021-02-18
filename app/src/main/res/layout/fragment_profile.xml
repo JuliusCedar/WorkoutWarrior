@@ -130,6 +130,7 @@
             android:layout_weight="1">
 
             <View
+                android:id="@+id/strength_bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginVertical="12dp"
@@ -139,6 +140,7 @@
             </View>
 
             <View
+                android:id="@+id/dexterity_bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginVertical="12dp"
@@ -148,6 +150,7 @@
             </View>
 
             <View
+                android:id="@+id/constitution_bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginVertical="12dp"

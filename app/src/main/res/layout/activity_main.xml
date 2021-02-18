@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/blue"
+            android:padding="0dp"
+            android:backgroundTint="@color/dark_blue_grey"
             android:onClick="ShowProfile"
             android:text="Profile"></Button>
 
@@ -35,7 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/blue"
+            android:padding="0dp"
+            android:backgroundTint="@color/dark_blue_grey"
             android:onClick="ShowEquip"
             android:text="Equipment"></Button>
 
@@ -44,7 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/blue"
+            android:padding="0dp"
+            android:backgroundTint="@color/dark_blue_grey"
             android:onClick="ShowWorkouts"
             android:text="Workouts"></Button>
 
@@ -53,9 +56,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/blue"
+            android:padding="0dp"
+            android:backgroundTint="@color/dark_blue_grey"
             android:onClick="Logout"
-            android:text="Login"></Button>
+            android:text="Logout"></Button>
     </LinearLayout>
 
 </LinearLayout>
