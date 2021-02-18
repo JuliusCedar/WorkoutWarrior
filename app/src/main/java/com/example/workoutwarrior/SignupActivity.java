@@ -55,7 +55,7 @@ public class SignupActivity extends AppCompatActivity {
         int id = (int) (Math.random() * 1000000);
         try {
             dbManager.insertIntoProfile(id, username, password, "Knight");
-            dbManager.insertIntoStats(1, 1, 1, 1, id);
+            dbManager.insertIntoStats(1, 10, 10, 10, id);
         } catch (Error e) {
             Log.i("SIGNUP ERROR", e.toString());
         }

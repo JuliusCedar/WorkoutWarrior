@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
             public void onGlobalLayout() {
                 statBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 ViewGroup.LayoutParams params = statBar.getLayoutParams();
-                params.width = (int)((double)statVal/10.0*(double)statBar.getWidth());
+                params.width = (int)((double)statVal/100.0*(double)statBar.getWidth());
                 statBar.setLayoutParams(params);
             }
         });
