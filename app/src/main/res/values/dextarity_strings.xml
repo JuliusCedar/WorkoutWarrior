@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="Eworkout0Story">As you stroll into the tavern for the third time that week an old timer behind the bar approaches you saying “i see you in here all the time and i\'m looking for someone to pick up some stuff for me intown to rebuild this place, i\'ll pay you well and i could toss in a bit of free food on top of it after each delivery.”you figure why not with nothing else happening to you right now and your coin bag running low you could do with a few free meals.</string>
+    <string name="Eworkout0Tag">walk around town</string>
+    <string name="Eworkout1Story">“The first thing i need you to gather is a few support beams to help with restoring the roof back to what it needs to be. The ceiling has started to bow and i don\'t want to risk my new customers getting weary of it”</string>
+    <string name="Eworkout1Tag">get beams</string>
+    <string name="Eworkout2Story">“Next i need you to get me some hay from the local farm that way i can re-do the roofing to stop those pesky leaks in the ceiling from continuing.”</string>
+    <string name="Eworkout2Tag">get hay</string>
+    <string name="Eworkout3Story">“I need you to go get me a big bag of potatoes from the market. We just started to run out last night and we can\'t serve people anything without some warm potatoes on the side. I mean how can you think of having meat without potatoes potatoes just make all food so much better they just are the best base for everything even potato stew“</string>
+    <string name="Eworkout3Tag">get potatoes</string>
+    <string name="Eworkout4Story">“Now that the potatoes are restocked i need you to go to the butcher and pick up my order of chickens they were ready yesterday but you know potatoes are always a priority here”</string>
+    <string name="Eworkout4Tag">get chicken</string>
+    <string name="Eworkout5Story">“Next i need you to go get some bread from the baker they have the best rolls in town i wouldn\'t mind if you end up eating one or two on your way back they are good.”but with a look of you don\'t know if he is joking or not he says “what ever you eat will be coming out of your meal tonight”</string>
+    <string name="Eworkout5Tag">get bread</string>
+    <string name="Eworkout6Story">“The next thing I need you to grab are some new mugs. We had a little bit of a scuffle last night and a few of them got a little dinged up and I need some new ones. If you could go to the crafter and get them for me that would be great”</string>
+    <string name="Eworkout6Tag">get mugs</string>
+    <string name="Eworkout7Story">“The last thing I need is more potatoes. These aren\'t for the tavern. I just need more potatoes. I use them for everything from eating them to decorating.”</string>
+    <string name="Eworkout7Tag">more potatoes</string>
+    <string name="exercises">1 mile run</string>
+
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Cworkout0Story">Being that today you have no plans you decide to go for a walk around the town and look at the market that just opened up in the center of town. You find a couple things you want from a few friendly merchants and decide to get something to snack on while you walk back to your house. </string>
+    <string name="Cworkout0Tag">go to market</string>
+    <string name="Cworkout1Story">As you are walking through town on your way home you hear the scream of someone a street over so you run around the corner to see what was causing the commotion. A devious ghoul is chasing after someone. You throw a rock you find on the ground and try to draw its attention to help save who ever was being attacked. As the ghoul changes its interest to you it appears that you might not have thought this all the way through. </string>
+    <string name="Cworkout1Tag">fight ghoul</string>
+    <string name="Cworkout2Story">After defeating the ghoul and finally knocking it out the person who you saved comes out and thanks you for everything you did in stopping that foe. They offer you some money but you couldn\'t accept how easy it was. The person explains that they have some giant spiders that are out near their farm and if you could come and help deal with them. You say ”sure but for this I will need some payment”.</string>
+    <string name="Cworkout2Tag">fight giant spider</string>
+    <string name="Cworkout3Story">The giant spiders were a little more dangerous and a lot more terrifying. The person you help thanks you and pays you for your time and lets you be on your way.as you start to walk back to town a lone wolf comes out from around a tree and starts growling at you. It appears that this is going to be another dangerous thing you have to deal with today.</string>
+    <string name="Cworkout3Tag">fight wolf</string>
+    <string name="Cworkout4Story">After dealing with that wolf you finally arrive back in town. It has been a very stressful day and all you want to do is take a break and go to sleep. After you wake up the next morning you hear a knock on your door and an old couple is standing there looking terrified. They explain that they have a zombie trapped in their cellar and need someone to deal with it and were wondering if you could be the one to help with that. You accept and they show you the way to their house and open the cellar door for you to deal with the monster.</string>
+    <string name="Cworkout4Tag">fight zombie</string>
+    <string name="Cworkout5Story">After killing off that zombie you seem to be very tired. It wants to go to the market and get a bite to eat again unlike last time. Let\'s hope that something bad doesn\'t happen again right after. You definitely spoke too soon on this one because as you approach the market you hear a large amount of fearful yelling. A burning fire elemental has appeared and all you can think about is why are all these terrible things coming from. As you ponder this and get ready to deal with one heck of a heat wave you see a shadowy figure in the corner of the market running away with a book that has a weird symbol on it.</string>
+    <string name="Cworkout5Tag">fight fire elemental</string>
+    <string name="Cworkout6Story">After dealing with that fire elemental you think maybe that shady figure had something to do with all these weird appearances threatening people around the town. You decide to go to where they scampered off to and find a huge treant guarding a building and you decide to fight your way in.</string>
+    <string name="Cworkout6Tag">fight treant</string>
+    <string name="Cworkout7Story">Upon defeating the treant you find that there was a summoner inside the building hiding in a corner trying to finish a ritual to summon a demon you rush over and jump on him to stop the summoning. After that he throws you off and gets ready to fight and so do you</string>
+    <string name="Cworkout7Tag">fight summoner</string>
+    <string name="exercises">burpees 10 x 5
+Line hops 10 x 5
+Jumping jacks 10 x 5
+Side jumps 10 x 5
+Forward long jumps 10 x 5
+180 jumps 10 x 5
+</string>
+</resources>

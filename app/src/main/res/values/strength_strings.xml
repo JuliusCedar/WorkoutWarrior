@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Sworkout0Story">As you approach the bounty board you realize a new listing for a handy man is posted on the front. It reads “i\'m an old frail woman who needs help tending to my farm in the country. I will pay handsomely if someone were to show up and help with keeping land in check”</string>
+    <string name="Sworkout0Tag">check bounty board</string>
+    <string name="Sworkout1Story">As you approach the old woman\'s cabin she comes out wearing a large blanket covering her shivering body. She then points to a pile of wood and an axe that\'s when you realize her fire has gone out and this seems like a great way to get started.</string>
+    <string name="Sworkout1Tag">chop wood</string>
+    <string name="Sworkout2Story">After you finish cutting up the wood and bringing a few loads into start to dry out for the fire she discusses what all she needs done on and around her house. She lists out the things she needs done in a stern voice “you need to first finish building a stone wall around my garden,  clean the barn out, build a fence around the farm, and clear out the attic ” well you accept these terms and you figure you might as well get started on the first thing she mentioned being the stone wall.</string>
+    <string name="Sworkout2Tag">build wall</string>
+    <string name="Sworkout3Story">Building that stone wall wasn\'t too bad you did end up having to make a few judgement calls when it comes to building it since half way through you realized that the wall was supposed to go right on top of some unsuspecting carrots. With that though you move on to the next task of cleaning out the barn, how hard could that be. </string>
+    <string name="Sworkout3Tag">clean barn</string>
+    <string name="Sworkout4Story">As you persevere through the grueling challenge of getting every last wagon wheel and hay bale out from the farthest corner of the barn you look at the pile of what essentially feels like junk to you and think what could this old lady want with this old stuff anyways another one down time to keep working next up in the fence. </string>
+    <string name="Sworkout4Tag">build fence</string>
+    <string name="Sworkout5Story">This one took way longer than expected but it did start to get easier after everything started to get going: basically plant the post and toss the boards on move to the next. It got boring for a second but it did end up giving you some nice experience for future endeavours.well now all that\'s left is to clean the old woman's attic and you can get paid and be on your way. </string>
+    <string name="Sworkout5Tag">clean attic</string>
+    <string name="Sworkout6Story">Surprisingly in the attic you notice a small amount of light peering through a window. with that you were able to throw a bunch of stuff out of that speeding up the process and making it go a lot faster and what she doesnt know wont hurt her. As you get set to leave you ask for payment for the last few days of work but she says that she only has half of what she offered you but she does say she was about to get someone else to take that large pile of what you thought to be rubbish from the barn into town and get a good price for it but she says that if you do it she will split the profits of whatever you make from it so you agree and get ready for a long workout on your way back to town.</string>
+    <string name="Sworkout6Tag">bring stuff to town</string>
+    <string name="exercises">Push ups 5  x 3 (kneed if not able)
+Squats 10 x 3
+Sit Ups 10 x 3
+Wide arms push ups 5  x 3 (kneed if not able)
+lunges 10 x 3
+V-ups   5 x 3
+Diamond push ups 5 x 3 (kneed if not able)
+Side lunges 10 x 3
+bicycles 20 x 3
+</string>
+
+</resources>
