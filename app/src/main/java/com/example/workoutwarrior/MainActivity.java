@@ -36,12 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     // takes the user back to the login activity
     public void Logout(View view) {
-        // TODO: Start activity needs to be changed to finish the main activity
-
         // Shows login interface
         finish();
-        //Intent myIntent = new Intent(this, LoginActivity.class);
-        //this.startActivity(myIntent);
-
     }
 }

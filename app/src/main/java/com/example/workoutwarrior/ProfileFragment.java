@@ -23,13 +23,13 @@ public class ProfileFragment extends Fragment {
         TextView playerClass = (TextView)view.findViewById(R.id.class_display_text);
         TextView playerLevel = (TextView)view.findViewById(R.id.level_display_text);
 
-        View strBar = view.findViewById(R.id.strength_bar);
-        View dexBar = view.findViewById(R.id.dexterity_bar);
-        View conBar = view.findViewById(R.id.constitution_bar);
-
         playerName.setText(Profile.getProfile().getName());
         playerClass.setText(Profile.getProfile().getPlayerClass());
         playerLevel.setText(String.valueOf(Profile.getProfile().getLevel()));
+
+        View strBar = view.findViewById(R.id.strength_bar);
+        View dexBar = view.findViewById(R.id.dexterity_bar);
+        View conBar = view.findViewById(R.id.constitution_bar);
 
         setStatBar(strBar, Profile.getProfile().getStr());
         setStatBar(dexBar, Profile.getProfile().getDex());
