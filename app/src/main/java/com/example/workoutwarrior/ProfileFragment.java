@@ -13,27 +13,28 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class ProfileFragment extends Fragment {
+
+    TextView playerName;
+    TextView playerClass;
+    TextView playerLevel;
+
+    View strBar;
+    View dexBar;
+    View conBar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, null);
 
-        TextView playerName = (TextView)view.findViewById(R.id.name_text);
-        TextView playerClass = (TextView)view.findViewById(R.id.class_display_text);
-        TextView playerLevel = (TextView)view.findViewById(R.id.level_display_text);
+        playerName = (TextView)view.findViewById(R.id.name_text);
+        playerClass = (TextView)view.findViewById(R.id.class_display_text);
+        playerLevel = (TextView)view.findViewById(R.id.level_display_text);
 
-        playerName.setText(Profile.getProfile().getName());
-        playerClass.setText(Profile.getProfile().getPlayerClass());
-        playerLevel.setText(String.valueOf(Profile.getProfile().getLevel()));
-
-        View strBar = view.findViewById(R.id.strength_bar);
-        View dexBar = view.findViewById(R.id.dexterity_bar);
-        View conBar = view.findViewById(R.id.constitution_bar);
-
-        setStatBar(strBar, Profile.getProfile().getStr());
-        setStatBar(dexBar, Profile.getProfile().getDex());
-        setStatBar(conBar, Profile.getProfile().getCon());
+        strBar = view.findViewById(R.id.strength_bar);
+        dexBar = view.findViewById(R.id.dexterity_bar);
+        conBar = view.findViewById(R.id.constitution_bar);
 
         return view;
     }
@@ -50,4 +51,17 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        playerName.setText(Profile.getProfile().getName());
+        Log.w("name ", Profile.getProfile().getName());
+        //playerClass.setText(Profile.getProfile().getPlayerClass());
+        //playerLevel.setText(String.valueOf(Profile.getProfile().getLevel()));
+
+        setStatBar(strBar, Profile.getProfile().getStrength());
+        setStatBar(dexBar, Profile.getProfile().getDexterity());
+        setStatBar(conBar, Profile.getProfile().getConstitution());
+    }
 }

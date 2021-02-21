@@ -1,6 +1,5 @@
 package com.example.workoutwarrior;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,11 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
  * Manages sign up screen
  */
 public class SignupActivity extends AppCompatActivity {
-    private DatabaseManager dbManager;
+    private DatabaseManagerDeprecated dbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbManager = new DatabaseManager(this);
+        dbManager = new DatabaseManagerDeprecated(this);
         setContentView(R.layout.signup);
     }
 

@@ -2,15 +2,20 @@ package com.example.workoutwarrior;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Dictionary;
 
@@ -18,11 +23,15 @@ import java.util.Dictionary;
  * Manages login screen
  */
 public class LoginActivity extends AppCompatActivity {
-    private DatabaseManager dbManager;
+    private DatabaseManagerDeprecated dbManager;
+
+    private static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private static DatabaseReference dRef = database.getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbManager = new DatabaseManager(this);
+        dbManager = new DatabaseManagerDeprecated(this);
         setContentView(R.layout.login);
     }
 
@@ -40,11 +49,18 @@ public class LoginActivity extends AppCompatActivity {
         int playerId = dbManager.getPlayerId(username, password);
 
         if (playerId != -1) {
-            Dictionary currentPlayer = dbManager.selectById(playerId);
-            Profile.getProfile().loadProfile((String)currentPlayer.get("name"), (int)currentPlayer.get("level"), (String)currentPlayer.get("class"), (int)currentPlayer.get("strength"), (int)currentPlayer.get("dexterity"), (int)currentPlayer.get("constitution"));
-            // return to main activity, TODO: notify did succeed?
-            Intent myIntent = new Intent(this, MainActivity.class);
-            this.startActivity(myIntent);
+            dRef.child("profiles").child("Alex").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if(!task.isSuccessful()){
+                        //Todo: handle failure
+                    }
+                    else{
+                        Profile.loadProfile(task.getResult().getValue(Profile.class));
+                        launchApp();
+                    }
+                }
+            });
         } else {
             badLogin.setVisibility(View.VISIBLE);
         }
@@ -56,6 +72,11 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void signup(View v){
         Intent myIntent = new Intent(this, SignupActivity.class);
+        this.startActivity(myIntent);
+    }
+
+    private void launchApp(){
+        Intent myIntent = new Intent(this, MainActivity.class);
         this.startActivity(myIntent);
     }
 }

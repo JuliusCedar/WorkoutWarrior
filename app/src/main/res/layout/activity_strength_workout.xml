@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StrengthWorkoutActivity">
+    tools:context=".StrengthWorkoutActivity"
+    android:orientation="vertical"
+    android:background="@color/blue_grey">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/blue_grey">
+
+    </View>
+
+
+    <TextView
+        android:id="@+id/story_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/dark_grey"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="5dp"
+        android:textSize="24dp"
+        android:textColor="@color/light_grey"
+        android:padding="5dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/workout_steps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:background="@color/dark_blue_grey"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/return_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:text="Go Back"
+            android:backgroundTint="@color/dark_blue_grey"
+            android:onClick="quitWorkout"/>
+
+        <Button
+            android:id="@+id/finish_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="5dp"
+            android:text="Finish"
+            android:backgroundTint="@color/dark_blue_grey"
+            android:onClick="finishWorkout"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
