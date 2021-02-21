@@ -14,19 +14,67 @@
         >
 
         <TextView
-            android:id="@+id/username_text"
+            android:id="@+id/email_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Username"></TextView>
+            android:text="Email"></TextView>
 
         <EditText
-            android:id="@+id/username_login"
+            android:id="@+id/email_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Character Name"></TextView>
+
+        <EditText
+            android:id="@+id/name_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:inputType="text" />
+
+        <TextView
+            android:id="@+id/class_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Select A Class:"></TextView>
+        <RadioGroup
+            android:id="@+id/class_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/Knight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Knight" >
+            </RadioButton>
+            <RadioButton
+                android:id="@+id/mage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mage" >
+            </RadioButton>
+            <RadioButton
+                android:id="@+id/archer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Archer" >
+            </RadioButton>
+        </RadioGroup>
 
         <TextView
             android:id="@+id/password_text"
