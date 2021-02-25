@@ -8,6 +8,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import java.lang.Math;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -102,7 +104,8 @@ public class SignupActivity extends AppCompatActivity {
         String email = user.getEmail();
         String characterName = name.getText().toString();
         String characterClass = button.getText().toString();
-
+        
+        profilesRef.child(user.getUid()).setValue(new ProfileData(characterName));
 
         Log.i("adding to db: ", email + characterClass + characterName);
     }

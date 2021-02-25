@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null) {
             Log.i("Load Profile: ", user.getEmail());
             badLogin.setVisibility(View.INVISIBLE);
-            dRef.child("profiles").child("Alex").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            dRef.child("profiles").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     if(!task.isSuccessful()){
