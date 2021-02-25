@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,7 @@ public class SignupActivity extends AppCompatActivity {
     private DatabaseManagerDeprecated dbManager;
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase db;
 
 
     @Override
@@ -33,6 +36,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         dbManager = new DatabaseManagerDeprecated(this);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance();
         setContentView(R.layout.signup);
     }
 
@@ -89,6 +93,8 @@ public class SignupActivity extends AppCompatActivity {
      * Adds a new profile into the database
      */
     public void addToDb(FirebaseUser user) {
+        DatabaseReference profilesRef = db.getReference("profiles");
+
         EditText name = (EditText) findViewById(R.id.name_signup);
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.class_group);
         RadioButton button = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
@@ -96,6 +102,7 @@ public class SignupActivity extends AppCompatActivity {
         String email = user.getEmail();
         String characterName = name.getText().toString();
         String characterClass = button.getText().toString();
+
 
         Log.i("adding to db: ", email + characterClass + characterName);
     }

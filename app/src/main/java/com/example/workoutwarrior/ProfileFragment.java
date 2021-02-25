@@ -55,13 +55,15 @@ public class ProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        playerName.setText(Profile.getProfile().getName());
-        Log.w("name ", Profile.getProfile().getName());
-        //playerClass.setText(Profile.getProfile().getPlayerClass());
+        Profile profile = Profile.getProfile();
+
+        playerName.setText(profile.getName());
+        Log.w("name ", profile.getName());
+        //playerClass.setText(profile.getPlayerClass());
         //playerLevel.setText(String.valueOf(Profile.getProfile().getLevel()));
 
-        setStatBar(strBar, Profile.getProfile().getStrength());
-        setStatBar(dexBar, Profile.getProfile().getDexterity());
-        setStatBar(conBar, Profile.getProfile().getConstitution());
+        setStatBar(strBar, profile.getStrength());
+        setStatBar(dexBar, profile.getDexterity());
+        setStatBar(conBar, profile.getConstitution());
     }
 }

@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                         //Todo: handle failure
                     }
                     else{
-                        Profile.loadProfile(task.getResult().getValue(Profile.class));
+                        Profile.getProfile().setData(task.getResult().getValue(ProfileData.class));
                         launchApp();
                     }
                 }

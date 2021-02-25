@@ -1,12 +1,5 @@
 package com.example.workoutwarrior;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -17,15 +10,7 @@ public class Profile {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference dRef = database.getReference();
 
-    private String name;
-    private int experience;
-    private int strength;
-    private int dexterity;
-    private int constitution;
-
-    private int sQuest;
-    private int dQuest;
-    private int cQuest;
+    private ProfileData data;
 
     //Get profile, create one if one has not already been created
     //Enforces only one instance
@@ -37,53 +22,41 @@ public class Profile {
     }
 
     //update the profile to a new profile
-    public static void loadProfile(Profile profile){
-        INSTANCE = profile;
+    public void loadProfileData(ProfileData data){
+        this.data = data;
     }
 
     private Profile(){
-        name = "NONE";
-        experience = -1;
-        strength = -1;
-        dexterity = -1;
-        constitution = -1;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getConstitution() {
-        return constitution;
-    }
-
-    public int getDexterity() {
-        return dexterity;
-    }
-
-    private void setStrength(int strength){ this.strength = strength; }
-
-    private void setDexterity(int strength){ this.strength = strength; }
-
-    private void setConstitution(int strength){ this.strength = strength; }
-
-    public int getExperience() {
-        return experience;
+        data = new ProfileData();
     }
 
     public String getName() {
-        return name;
+        return data.name;
     }
 
-    public int getsQuest(){ return sQuest; }
+    public int getExperience() {
+        return data.experience;
+    }
 
-    public int getdQuest(){ return dQuest; }
+    public int getStrength() {
+        return data.strength;
+    }
 
-    public int getcQuest(){ return cQuest; }
+    public int getConstitution() {
+        return data.constitution;
+    }
 
-    private void setsQuest(int sQuest){ this.sQuest = sQuest; }
+    public int getDexterity() {
+        return data.dexterity;
+    }
 
-    private void setdQuest(int dQuest){ this.dQuest = dQuest; }
+    public int getsQuest(){ return data.sQuest; }
 
-    private void setcQuest(int cQuest){ this.cQuest = cQuest; }
+    public int getdQuest(){ return data.dQuest; }
+
+    public int getcQuest(){ return data.cQuest; }
+
+    public void setData(ProfileData newData){
+        data = newData;
+    }
 }
