@@ -23,36 +23,30 @@
         tools:layout_editor_absoluteY="231dp">
         <Button
             android:id="@+id/strength_workout_button"
-            android:text="Strength Workout \n Help Grandma Ellie chop logs"
             android:textColor="@color/orange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/dark_blue_grey"
-            android:onClick="openStrWorkout"></Button>
+            android:backgroundTint="@color/dark_blue_grey"></Button>
 
         <Button
             android:id="@+id/dexterity_workout_button"
-            android:text="Running Workout \n Run to Farmer Janken and bring back some wheat"
             android:textColor="@color/green"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/dark_blue_grey"
-            android:onClick="openDexWorkout"></Button>
+            android:backgroundTint="@color/dark_blue_grey"></Button>
 
         <Button
             android:id="@+id/constitution_workout_button"
-            android:text="Fight a ghoul thats scaring off customers at the pub"
             android:textColor="@color/teal_200"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/dark_blue_grey"
-            android:onClick="openConWorkout"></Button>
+            android:backgroundTint="@color/dark_blue_grey"></Button>
 
     </LinearLayout>
 
