@@ -41,9 +41,9 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
         TextView storyView = (TextView)findViewById(R.id.story_text);
         TextView workoutView = (TextView)findViewById(R.id.workout_steps);
 
-        storyView.setText(helper.story);
 
-        //setStory(storyView,questLevel);
+
+        setStory(storyView,questLevel);
         setWorkout(workoutView);
 
     }
@@ -57,7 +57,7 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
         Profile.getProfile().addStrengthExp(helper.experience);
         finish();
     }
-    /*
+    
     private void setStory(TextView v,int level){
         workoutRef.child(""+level).child("story").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -66,7 +66,7 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
             }
         });
     }
-*/
+
     private void setWorkout(TextView v){
         workoutRef.child("-1").child("Exercises").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
