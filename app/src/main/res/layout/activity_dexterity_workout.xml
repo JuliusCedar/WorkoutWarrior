@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_grey"
     android:orientation="vertical">
 
     <fragment
@@ -12,13 +13,49 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_margin="5dp"
         tools:context=".DexterityWorkoutActivity" />
 
     <TextView
         android:id="@+id/story_text"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:background="@color/dark_grey"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="@color/light_grey"
+        android:textSize="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/return_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/dark_blue_grey"
+            android:onClick="goBack"
+            android:text="Go Back" />
+
+        <Button
+            android:id="@+id/finish_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/dark_blue_grey"
+            android:onClick="finishWorkout"
+            android:text="Finish" />
+
+
+    </LinearLayout>
 
 
 
