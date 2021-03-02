@@ -50,6 +50,15 @@ public class Profile {
     public void addConstitutionExp(int xp){
         data.constitution += xp;
     }
+    public void finshSQuest(){
+        data.sQuest += 1;
+    }
+    public void finishDQuest(){
+        data.dQuest += 1;
+    }
+    public void finishCQuest(){
+        data.cQuest += 1;
+    }
 
     public int getsQuest(){ return data.sQuest; }
 
