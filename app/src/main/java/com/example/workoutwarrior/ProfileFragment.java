@@ -29,8 +29,6 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, null);
 
         playerName = (TextView)view.findViewById(R.id.name_text);
-        playerClass = (TextView)view.findViewById(R.id.class_display_text);
-        playerLevel = (TextView)view.findViewById(R.id.level_display_text);
 
         strBar = view.findViewById(R.id.strength_bar);
         dexBar = view.findViewById(R.id.dexterity_bar);
@@ -58,9 +56,6 @@ public class ProfileFragment extends Fragment {
         Profile profile = Profile.getProfile();
 
         playerName.setText(profile.getName());
-        Log.w("name ", profile.getName());
-        //playerClass.setText(profile.getPlayerClass());
-        //playerLevel.setText(String.valueOf(Profile.getProfile().getLevel()));
 
         setStatBar(strBar, profile.getStrength());
         setStatBar(dexBar, profile.getDexterity());

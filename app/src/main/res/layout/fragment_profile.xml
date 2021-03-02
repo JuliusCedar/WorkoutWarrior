@@ -30,7 +30,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/name_text"
@@ -39,41 +40,7 @@
                 android:text="Name"
                 android:textSize="36sp"></TextView>
 
-            <TextView
-                android:id="@+id/class_text"
-                android:layout_below="@id/name_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Class:"
-                android:textSize="24sp"></TextView>
 
-            <TextView
-                android:id="@+id/class_display_text"
-                android:layout_toRightOf="@id/class_text"
-                android:layout_below="@id/name_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:textSize="24sp"
-                android:text=""></TextView>
-
-            <TextView
-                android:id="@+id/level_text"
-                android:layout_below="@id/class_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Level:"
-                android:textSize="24sp"></TextView>
-
-            <TextView
-                android:id="@+id/level_display_text"
-                android:layout_toRightOf="@id/level_text"
-                android:layout_below="@id/class_display_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:textSize="24sp"
-                android:text=""></TextView>
         </RelativeLayout>
     </LinearLayout>
 
