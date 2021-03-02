@@ -2,9 +2,9 @@ package com.example.workoutwarrior;
 
 public class StrengthWorkoutHelper {
 
-    int experience;
-    String reward;
-    String story;
-    String tag;
+    public int experience;
+    public String reward;
+    public String story;
+    public String tag;
 
 }
