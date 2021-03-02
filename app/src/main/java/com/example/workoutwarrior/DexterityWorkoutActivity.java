@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -70,7 +71,11 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
-    public void finishWorkout(){
+    public void finishWorkout(View view){
+        finish();
+    }
 
+    public void goBack(View view){
+        finish();
     }
 }
