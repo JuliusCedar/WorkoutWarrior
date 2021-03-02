@@ -45,7 +45,9 @@ public class ConstitutionWorkoutActivity extends AppCompatActivity {
         workoutRef.child(""+level).child("story").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                v.setText(String.valueOf(task.getResult().getValue()));
+                if(task.isSuccessful()){
+                    v.setText(String.valueOf(task.getResult().getValue()));
+                }
             }
         });
     }
@@ -54,7 +56,9 @@ public class ConstitutionWorkoutActivity extends AppCompatActivity {
         workoutRef.child("-1").child("Exercises").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                v.setText(String.valueOf(task.getResult().getValue()));
+                if(task.isSuccessful()){
+                    v.setText(String.valueOf(task.getResult().getValue()));
+                }
             }
         });
     }

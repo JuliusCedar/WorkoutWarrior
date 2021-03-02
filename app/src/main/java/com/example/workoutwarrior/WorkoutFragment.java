@@ -68,7 +68,9 @@ public class WorkoutFragment extends Fragment {
         workoutRef.child(workoutType).child(""+level).child("tag").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                button.setText(String.valueOf(task.getResult().getValue()));
+                if(task.isSuccessful()){
+                    button.setText(String.valueOf(task.getResult().getValue()));
+                }
             }
         });
     }
