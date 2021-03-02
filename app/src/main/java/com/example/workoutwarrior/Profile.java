@@ -1,5 +1,7 @@
 package com.example.workoutwarrior;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -76,6 +78,7 @@ public class Profile {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String UID = user.getUid();
+        Log.w("asdf", "saving");
         dRef.child("profiles").child(""+UID).setValue(data);
     }   
 }

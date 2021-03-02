@@ -46,6 +46,7 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
     public void finishWorkout(View v){
         Profile.getProfile().finishSQuest();
         Profile.getProfile().addStrengthExp(currentWorkout.experience);
+        Profile.getProfile().saveToDatabase();
         finish();
     }
 

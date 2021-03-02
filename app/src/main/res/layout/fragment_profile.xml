@@ -62,7 +62,7 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center_vertical|right"
                 android:layout_weight="1"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 android:textColor="@color/black"
                 android:text="Strength:">
             </TextView>
@@ -73,7 +73,7 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center_vertical|right"
                 android:layout_weight="1"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 android:textColor="@color/black"
                 android:text="Dexterity:">
             </TextView>
@@ -84,7 +84,7 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center_vertical|right"
                 android:layout_weight="1"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 android:textColor="@color/black"
                 android:text="Constitution:">
             </TextView>
