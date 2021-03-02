@@ -33,7 +33,7 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
                     //Todo: handle failure
                 }
                 else{
-                    helper= (StrengthWorkoutHelper) task.getResult().getValue();
+                    helper= task.getResult().getValue(StrengthWorkoutHelper.class);
                 }
             }
         });
