@@ -69,4 +69,10 @@ public class Profile {
     public void setData(ProfileData newData){
         data = newData;
     }
+    public void saveToDatabase(){
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String UID = user.getUid();
+        dRef.child("profiles").child(""+UID).setValue(data);
+    }   
 }
