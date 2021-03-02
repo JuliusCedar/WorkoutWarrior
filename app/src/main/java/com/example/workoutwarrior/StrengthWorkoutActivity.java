@@ -33,19 +33,11 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
                     //Todo: handle failure
                 }
                 else{
-                    helper= task.getResult().getValue(StrengthWorkoutHelper.class);
+                    helper= task.getResult().getValue((StrengthWorkoutHelper.class));
+                    populateData(questLevel);
                 }
             }
         });
-
-        TextView storyView = (TextView)findViewById(R.id.story_text);
-        TextView workoutView = (TextView)findViewById(R.id.workout_steps);
-
-
-
-        setStory(storyView,questLevel);
-        setWorkout(workoutView);
-
     }
 
     public void quitWorkout(View v){
@@ -57,7 +49,15 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
         Profile.getProfile().addStrengthExp(helper.experience);
         finish();
     }
-    
+
+    private void populateData(int questLevel){
+        TextView storyView = (TextView)findViewById(R.id.story_text);
+        TextView workoutView = (TextView)findViewById(R.id.workout_steps);
+
+        setStory(storyView,questLevel);
+        setWorkout(workoutView);
+    }
+
     private void setStory(TextView v,int level){
         workoutRef.child(""+level).child("story").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
