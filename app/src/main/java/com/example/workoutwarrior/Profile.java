@@ -21,21 +21,12 @@ public class Profile {
         return INSTANCE;
     }
 
-    //update the profile to a new profile
-    public void loadProfileData(ProfileData data){
-        this.data = data;
-    }
-
     private Profile(){
         data = new ProfileData();
     }
 
     public String getName() {
         return data.name;
-    }
-
-    public int getExperience() {
-        return data.experience;
     }
 
     public int getStrength() {
@@ -48,6 +39,16 @@ public class Profile {
 
     public int getDexterity() {
         return data.dexterity;
+    }
+
+    public void addStrengthExp(int xp){
+        data.strength += xp;
+    }
+    public void addDexterityExp(int xp){
+        data.dexterity += xp;
+    }
+    public void addConstitutionExp(int xp){
+        data.constitution += xp;
     }
 
     public int getsQuest(){ return data.sQuest; }

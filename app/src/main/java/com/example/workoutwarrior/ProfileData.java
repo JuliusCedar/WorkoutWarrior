@@ -8,7 +8,6 @@ public class ProfileData{
 
     public ProfileData(String name){
         this.name = name;
-        experience = 0;
         strength = 10;
         dexterity = 10;
         constitution = 10;
@@ -18,7 +17,6 @@ public class ProfileData{
     }
 
     public String name;
-    public int experience;
     public int strength;
     public int dexterity;
     public int constitution;
