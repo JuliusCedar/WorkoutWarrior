@@ -37,7 +37,8 @@ public class ConstitutionWorkoutActivity extends AppCompatActivity {
     }
 
     public void finishWorkout(View v){
-        //database.getReference().child();
+        Profile.getProfile().finishCQuest();
+        Profile.getProfile().saveToDatabase();
         finish();
     }
 
