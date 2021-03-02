@@ -17,11 +17,28 @@ public class ConstitutionWorkoutActivity extends AppCompatActivity {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference workoutRef = database.getReference().child("quests").child("constitution");
 
+    private ConstitutionWorkoutHelper currentWorkout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constitution_workout);
 
+        workoutRef.child(""+Profile.getProfile().getsQuest()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(!task.isSuccessful()){
+                    //Todo: handle failure
+                }
+                else{
+                    currentWorkout = task.getResult().getValue((ConstitutionWorkoutHelper.class));
+                    populateData();
+                }
+            }
+        });
+    }
+
+    private void populateData(){
         int questLevel = Profile.getProfile().getsQuest();
 
         TextView storyView = (TextView)findViewById(R.id.story_text);
@@ -32,12 +49,12 @@ public class ConstitutionWorkoutActivity extends AppCompatActivity {
     }
 
     public void quitWorkout(View v){
-
         finish();
     }
 
     public void finishWorkout(View v){
         Profile.getProfile().finishCQuest();
+        Profile.getProfile().addConstitutionExp(currentWorkout.experience);
         Profile.getProfile().saveToDatabase();
         finish();
     }

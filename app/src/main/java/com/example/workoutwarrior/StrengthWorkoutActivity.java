@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class StrengthWorkoutActivity extends AppCompatActivity {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference workoutRef = database.getReference().child("quests").child("strength");
-    private StrengthWorkoutHelper helper = new StrengthWorkoutHelper();
+    private StrengthWorkoutHelper currentWorkout = new StrengthWorkoutHelper();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +32,7 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
                     //Todo: handle failure
                 }
                 else{
-                    helper= task.getResult().getValue((StrengthWorkoutHelper.class));
+                    currentWorkout = task.getResult().getValue((StrengthWorkoutHelper.class));
                     populateData(questLevel);
                 }
             }
@@ -46,7 +45,7 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
 
     public void finishWorkout(View v){
         Profile.getProfile().finishSQuest();
-        Profile.getProfile().addStrengthExp(helper.experience);
+        Profile.getProfile().addStrengthExp(currentWorkout.experience);
         finish();
     }
 
@@ -62,7 +61,9 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
         workoutRef.child(""+level).child("story").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                v.setText(String.valueOf(task.getResult().getValue()));
+                if (task.isSuccessful()) {
+                    v.setText(String.valueOf(task.getResult().getValue()));
+                }
             }
         });
     }
@@ -71,7 +72,9 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
         workoutRef.child("-1").child("Exercises").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                v.setText(String.valueOf(task.getResult().getValue()));
+                if(task.isSuccessful()){
+                    v.setText(String.valueOf(task.getResult().getValue()));
+                }
             }
         });
     }

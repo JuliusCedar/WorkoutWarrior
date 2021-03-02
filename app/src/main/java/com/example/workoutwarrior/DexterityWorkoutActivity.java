@@ -24,7 +24,7 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference dRef = database.getReference().child("quests").child("dexterity");
 
-    private DexWorkout currentWorkout;
+    private DexWorkoutHelper currentWorkout;
 
     private GoogleMap mMap;
 
@@ -40,7 +40,7 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()){
-                    currentWorkout = task.getResult().getValue(DexWorkout.class);
+                    currentWorkout = task.getResult().getValue(DexWorkoutHelper.class);
                     populateData();
                 }
             }
@@ -72,6 +72,9 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     }
 
     public void finishWorkout(View view){
+        Profile.getProfile().finishDQuest();
+        Profile.getProfile().addDexterityExp(currentWorkout.experience);
+        Profile.getProfile().saveToDatabase();
         finish();
     }
 

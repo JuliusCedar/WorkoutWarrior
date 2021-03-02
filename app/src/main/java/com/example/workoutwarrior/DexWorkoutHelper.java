@@ -1,6 +1,6 @@
 package com.example.workoutwarrior;
 
-public class DexWorkout {
+public class DexWorkoutHelper {
     public int experience;
     public String reward;
     public String story;
