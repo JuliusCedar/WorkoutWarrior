@@ -4,8 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public void ShowProfile(View view) {
         Fragment profile = new ProfileFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_layout, profile).commit();
+
     }
     public void ShowEquip(View view) {
         Fragment equipment = new EquipmentFragment();
@@ -39,4 +46,5 @@ public class MainActivity extends AppCompatActivity {
         // Shows login interface
         finish();
     }
+
 }

@@ -1,18 +1,24 @@
 package com.example.workoutwarrior;
 
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
+    private static final int PHOTO_REQUEST = 1;
+    private ImageView imageView;
+    private Bitmap bitmap;
 
     TextView playerName;
     TextView playerClass;
@@ -22,19 +28,25 @@ public class ProfileFragment extends Fragment {
     View dexBar;
     View conBar;
 
+    ImageView profileImage;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, null);
 
-        playerName = (TextView)view.findViewById(R.id.name_text);
+        playerName = (TextView) view.findViewById(R.id.name_text);
 
         strBar = view.findViewById(R.id.strength_bar);
         dexBar = view.findViewById(R.id.dexterity_bar);
         conBar = view.findViewById(R.id.constitution_bar);
 
+        profileImage = (ImageView) view.findViewById(R.id.profile_image);
+        profileImage.setOnClickListener(this);
+
         return view;
+
     }
 
     private void setStatBar(View statBar, int statVal){
@@ -61,4 +73,10 @@ public class ProfileFragment extends Fragment {
         setStatBar(dexBar, profile.getDexterity());
         setStatBar(conBar, profile.getConstitution());
     }
+
+    @Override
+    public void onClick(View v) {
+        Log.i("Profile Image", "Clicked");
+    }
+
 }
