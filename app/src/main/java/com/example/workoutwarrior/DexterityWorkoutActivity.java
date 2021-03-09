@@ -2,7 +2,6 @@ package com.example.workoutwarrior;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -15,13 +14,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class DexterityWorkoutActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
-    private final static int LOCATION_REQUEST_CODE = 1;
+    private final static int GPS_LOCATION_CODE = 1;
+    private final static int MAP_LOCATION_CODE = 2;
 
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference dRef = database.getReference().child("quests").child("dexterity");
@@ -46,7 +44,7 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dexterity_workout);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -56,10 +54,10 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     @Override
     protected void onStart() {
         super.onStart();
-        dRef.child(""+Profile.getProfile().getdQuest()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        dRef.child("" + Profile.getProfile().getdQuest()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     currentWorkout = task.getResult().getValue(DexWorkoutHelper.class);
                     populateData();
                 }
@@ -69,49 +67,57 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case LOCATION_REQUEST_CODE:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        switch (requestCode) {
+            case GPS_LOCATION_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     setupGPS();
+                } else {
+                    //TODO: Permission denied, handle this
                 }
-                else{
+                return;
+            case MAP_LOCATION_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    setupMap();
+                } else {
                     //TODO: Permission denied, handle this
                 }
                 return;
         }
     }
 
-    private void setupGPS(){
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        setupMap();
+    }
+
+    private void setupGPS() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         boolean finePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         boolean coursePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         if (finePermission && coursePermission) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        } else {
+            String[] neededPermissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+            ActivityCompat.requestPermissions(this, neededPermissions, GPS_LOCATION_CODE);
+        }
+    }
+
+    private void setupMap(){
+        boolean finePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean coursePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if (finePermission && coursePermission) {
+            mMap.setMyLocationEnabled(true);
         }
         else{
             String[] neededPermissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-            ActivityCompat.requestPermissions(this, neededPermissions, LOCATION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, neededPermissions, MAP_LOCATION_CODE);
         }
     }
 
-    private void populateData(){
-        ((TextView)findViewById(R.id.story_text)).setText(currentWorkout.story);
+    private void populateData() {
+        ((TextView) findViewById(R.id.story_text)).setText(currentWorkout.story);
     }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-    }
-
 
     public void finishWorkout(View view){
         Profile.getProfile().finishDQuest();
@@ -127,7 +133,7 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
     }
 
     @Override
