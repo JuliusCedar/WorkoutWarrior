@@ -7,25 +7,45 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.LocationRestriction;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class DexterityWorkoutActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class DexterityWorkoutActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener{
 
     private final static int GPS_LOCATION_CODE = 1;
     private final static int MAP_LOCATION_CODE = 2;
@@ -34,19 +54,18 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     private static DatabaseReference dRef = database.getReference().child("quests").child("dexterity");
 
     private GoogleMap mMap;
+
     LocationManager locationManager;
 
     private DexWorkoutHelper currentWorkout;
 
-    LatLng currentLocation;
+    LatLng currentLocation = null;
+    LatLng destination = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dexterity_workout);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         setupGPS();
     }
@@ -108,6 +127,20 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
         boolean coursePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         if (finePermission && coursePermission) {
             mMap.setMyLocationEnabled(true);
+            mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                @Override
+                public void onMapLongClick(LatLng latLng) {
+                    if(compareDistance(currentLocation, latLng) > 450 && compareDistance(currentLocation, latLng) < 550){
+                        mMap.clear();
+                        mMap.addCircle(new CircleOptions().center(currentLocation).radius(500));
+                        destination = latLng;
+                        mMap.addMarker(new MarkerOptions().position(latLng));
+                        drawRoute(currentLocation, destination);
+                    }
+                }
+            });
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
+            mMap.addCircle(new CircleOptions().center(currentLocation).radius(500));
         }
         else{
             String[] neededPermissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -115,8 +148,18 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
         }
     }
 
+
     private void populateData() {
         ((TextView) findViewById(R.id.story_text)).setText(currentWorkout.story);
+    }
+
+    private void drawRoute(LatLng loc1, LatLng loc2){
+        Object[] dataTransfer = new Object[4];
+        dataTransfer[0] = mMap;
+        dataTransfer[1] = getResources().getString(R.string.google_maps_key);
+        dataTransfer[2] = loc1.latitude+","+loc1.longitude;
+        dataTransfer[3] = loc2.latitude+","+loc2.longitude;
+        new GetDirections().execute(dataTransfer);
     }
 
     public void finishWorkout(View view){
@@ -130,10 +173,25 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
         finish();
     }
 
+    private double compareDistance(LatLng dist1, LatLng dist2){
+        Location locationA = new Location("point A");
+        locationA.setLatitude(dist1.latitude);
+        locationA.setLongitude(dist1.longitude);
+        Location locationB = new Location("point B");
+        locationB.setLatitude(dist2.latitude);
+        locationB.setLongitude(dist2.longitude);
+
+        return locationA.distanceTo(locationB);
+    }
+
     @Override
     public void onLocationChanged(Location location) {
+        boolean firstLoc = currentLocation == null ? true : false;
         currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
+        if(firstLoc){
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+        }
     }
 
     @Override
