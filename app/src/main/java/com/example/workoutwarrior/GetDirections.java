@@ -1,9 +1,13 @@
 package com.example.workoutwarrior;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,8 +21,11 @@ import java.util.List;
 
 public class GetDirections extends AsyncTask<Object, String, String> {
 
+    GoogleMap map;
+
     @Override
     protected String doInBackground(Object... params) {
+        map = (GoogleMap) params[0];
         String stringUrl = "https://maps.googleapis.com/maps/api/directions/json?origin=" + params[2] + "&destination=" + params[3] + "&key="+params[1]  +"&sensor=false";
         String output = null;
         StringBuilder response = new StringBuilder();
@@ -37,7 +44,16 @@ public class GetDirections extends AsyncTask<Object, String, String> {
 
             output = response.toString();
 
-            JSONObject jsonObject = new JSONObject(output);
+        } catch (Exception e) {
+
+        }
+        return output;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        try {
+            JSONObject jsonObject = new JSONObject(s);
 
             // routesArray contains ALL routes
             JSONArray routesArray = jsonObject.getJSONArray("routes");
@@ -46,18 +62,17 @@ public class GetDirections extends AsyncTask<Object, String, String> {
 
             JSONObject poly = route.getJSONObject("overview_polyline");
             String polyline = poly.getString("points");
-            //pontos = decodePoly(polyline);
+            List<LatLng> pathPoints = decodePoly(polyline);
 
-        } catch (Exception e) {
+            for(int i=0;i<pathPoints.size()-1;i++){
+                LatLng src = pathPoints.get(i);
+                LatLng dest = pathPoints.get(i+1);
+                Polyline line = map.addPolyline(new PolylineOptions().add(src,dest).width(2).color(Color.RED).geodesic(true));
+            }
+        }
+        catch (Exception e){
 
         }
-
-        return output;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        Log.e("OUTPUT",s);
     }
 
     private List<LatLng> decodePoly(String encoded) {
