@@ -6,11 +6,6 @@
     android:orientation="vertical"
     tools:context=".ProfileFragment">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3.4"
-        android:background="@color/black"></View>
 
     <LinearLayout
         android:layout_width="match_parent"

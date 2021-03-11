@@ -2,10 +2,12 @@ package com.example.workoutwarrior;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,8 +16,10 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class WorkoutFragment extends Fragment {
 
@@ -37,20 +41,19 @@ public class WorkoutFragment extends Fragment {
         setupButton((Button) getActivity().findViewById(R.id.constitution_workout_button));
     }
 
-    private void setupButton(Button button){
-        switch (button.getId()){
-            case R.id.dexterity_workout_button:
-                button.setOnClickListener(createOnWorkoutClicked(DexterityWorkoutActivity.class));
-                setButtonWorkoutTag(button, "dexterity", Profile.getProfile().getdQuest());
-                break;
-            case R.id.strength_workout_button:
-                button.setOnClickListener(createOnWorkoutClicked(StrengthWorkoutActivity.class));
-                setButtonWorkoutTag(button, "strength", Profile.getProfile().getsQuest());
-                break;
-            case R.id.constitution_workout_button:
-                button.setOnClickListener(createOnWorkoutClicked(ConstitutionWorkoutActivity.class));
-                setButtonWorkoutTag(button, "constitution", Profile.getProfile().getcQuest());
-                break;
+    private void setupButton(Button button) {
+        int id = button.getId();
+        if (id == R.id.dexterity_workout_button) {
+            button.setOnClickListener(createOnWorkoutClicked(DexterityWorkoutActivity.class));
+            setButtonWorkoutTag(button, "dexterity", Profile.getProfile().getdQuest());
+        }
+        else if (id == R.id.strength_workout_button) {
+            button.setOnClickListener(createOnWorkoutClicked(StrengthWorkoutActivity.class));
+            setButtonWorkoutTag(button, "strength", Profile.getProfile().getsQuest());
+        }
+        else if (id == R.id.constitution_workout_button) {
+            button.setOnClickListener(createOnWorkoutClicked(ConstitutionWorkoutActivity.class));
+            setButtonWorkoutTag(button, "constitution", Profile.getProfile().getcQuest());
         }
     }
 
@@ -64,12 +67,23 @@ public class WorkoutFragment extends Fragment {
         };
     }
 
-    private void setButtonWorkoutTag(Button button, String workoutType, int level){
+    private void setButtonWorkoutTag(Button button, String workoutType, int level) {
+
         workoutRef.child(workoutType).child(""+level).child("tag").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()){
-                    button.setText(String.valueOf(task.getResult().getValue()));
+                    // if got result, set text depending on if the quest is completed
+                    String name = String.valueOf(task.getResult().getValue());
+                    Log.d("Micah-c", "'" + name + "'");
+                    if(!name.equals("null"))
+                        button.setText(name);
+                    else
+                        button.setText("All completed!");
+                } else{
+                    // if failed to get task (client is offline error) TODO: handle
+                    getActivity().finish();
+                    Toast.makeText(getContext(), "You lost connection, please restart and sign back in", Toast.LENGTH_LONG).show();
                 }
             }
         });

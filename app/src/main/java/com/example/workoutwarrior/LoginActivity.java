@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 
@@ -39,6 +41,13 @@ public class LoginActivity extends AppCompatActivity {
         dbManager = new DatabaseManagerDeprecated(this);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.login);
+
+        // remember me feature
+        String remembered_email = getSharedPreferences("Login_prefs", MODE_PRIVATE).getString("remembered_email", null);
+        if(remembered_email != null) {
+            ((EditText) findViewById(R.id.username_login)).setText(remembered_email);
+            ((CheckBox)findViewById(R.id.remember_me)).setChecked(true);
+        }
     }
 
 
@@ -53,8 +62,15 @@ public class LoginActivity extends AppCompatActivity {
         String email = usernameElement.getText().toString();
         String password = passwordElement.getText().toString();
 
-        signIn(email, password);
+        // if either input was empty
+        if (email.isEmpty() || password.isEmpty()) {
+            badLogin.setVisibility(View.VISIBLE);
+        }
 
+        else {
+            badLogin.setVisibility(View.INVISIBLE);
+            signIn(email, password);
+        }
     }
 
     /* signIn
@@ -88,13 +104,31 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null) {
             Log.i("Load Profile: ", user.getEmail());
             badLogin.setVisibility(View.INVISIBLE);
-            dRef.child("profiles").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            Task<DataSnapshot> profile = dRef.child("profiles")
+                    .child(user.getUid())
+                    .get();
+
+            profile.addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if(!task.isSuccessful()){
-                        //Todo: handle failure
+
+                    Log.i("onComplete", "onComplete invoked...");
+
+                    if(!task.isSuccessful() && task.getException().getMessage().equals("Client is offline")){
+                        // if failed to get task (client is offline error) TODO: handle
+                        Toast.makeText(getApplicationContext(), "You lost connection, please restart and sign back in", Toast.LENGTH_LONG).show();
                     }
                     else{
+                        // reset views, and update remember me feature
+                        if( ((CheckBox)findViewById(R.id.remember_me)).isChecked() )
+                            getSharedPreferences("Login_prefs", MODE_PRIVATE).edit().putString("remembered_email", user.getEmail()).apply();
+                        else {
+                            getSharedPreferences("Login_prefs", MODE_PRIVATE).edit().remove("remembered_email").apply();
+                            ((EditText) findViewById(R.id.username_login)).setText("");
+                        }
+                        ((EditText)  findViewById(R.id.password_login)).setText("");
+
+                        // setup profile and go to main activity
                         Profile.getProfile().setData(task.getResult().getValue(ProfileData.class));
                         launchApp();
                     }

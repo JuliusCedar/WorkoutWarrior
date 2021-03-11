@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // temp show profile, TODO: it should be different if ^ fails
         ShowProfile(null);
     }
 

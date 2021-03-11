@@ -13,5 +13,11 @@
     <string name="EquipmentStatsHeaderText">Equipment Stats</string>
     <string name="EquipmentStatsDummyText">Stat 0: -4; Stat 1: -4</string>
     <string name="title_activity_dexterity_workout">Map</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
+    <string name="incorrect_login_information">Incorrect Login Information</string>
 
 </resources>

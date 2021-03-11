@@ -62,7 +62,6 @@ public class SignupActivity extends AppCompatActivity {
             noContent.setVisibility(View.VISIBLE);
         } else if (password1.equals(password2)) {
             addNewUser(email, password1);
-            // return to main activity, TODO: notify did succeed?
         } else {
             passwordsDontMatch.setVisibility(View.VISIBLE);
             password1Element.setText("");

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +13,7 @@
             android:id="@+id/bad_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Incorrect Login Information"
+            android:text="@string/incorrect_login_information"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:visibility="invisible"
@@ -24,25 +23,26 @@
             android:id="@+id/email_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="50dp"
-            android:text="Email" >
+            android:text="@string/email" >
         </TextView>
+
         <EditText
             android:id="@+id/username_login"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:inputType="text"/>
+            android:inputType="text|textEmailAddress" />
 
         <TextView
             android:id="@+id/password_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:text="Password" ></TextView>
+            android:text="@string/password" />
         <EditText
             android:id="@+id/password_login"
             android:layout_height="wrap_content"
@@ -51,13 +51,13 @@
             android:layout_margin="10dp"
             android:inputType="textPassword"/>
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/remember_me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remember Me"
+            android:text="@string/remember_me"
             android:checked="false"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_gravity="center_vertical" />
 
         <Button
@@ -70,7 +70,7 @@
             android:layout_marginRight="15dp"
             android:backgroundTint="@color/dark_blue_grey"
             android:onClick="login"
-            android:text="Log In" />
+            android:text="@string/log_in" />
 
 
         <Button
@@ -82,7 +82,7 @@
             android:layout_marginRight="15dp"
             android:backgroundTint="@color/blue_grey"
             android:onClick="signup"
-            android:text="Sign up" />
+            android:text="@string/sign_up" />
 
 
     </LinearLayout>
