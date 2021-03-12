@@ -120,7 +120,7 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
             mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                 @Override
                 public void onMapLongClick(LatLng latLng) {
-                    if(compareDistance(currentLocation, latLng) > 450 && compareDistance(currentLocation, latLng) < 550 && !locationSelected){
+                    if(checkInRange(latLng, 50) && !locationSelected){
                         destination = latLng;
                         checkpointLocation = currentLocation;
                         drawMap();
@@ -140,10 +140,15 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     private void drawMap(){
         mMap.clear();
         if(!locationSelected){
-            mMap.addCircle(new CircleOptions().center(currentLocation).radius(500));
+            mMap.addCircle(new CircleOptions().center(currentLocation).radius(currentWorkout.distance*1000));
         }
         if(destination != null){
-            drawRoute(currentLocation, destination);
+            if(!reachedDestination){
+                drawRoute(currentLocation, destination);
+            }
+            else{
+                drawRoute(currentLocation, startLocation);
+            }
         }
     }
 
@@ -158,7 +163,7 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     }
 
     public void selectLocation(View view){
-        if(destination != null){
+        if(destination != null && !locationSelected){
             locationSelected = true;
             startLocation = currentLocation;
             Button inputButton = (Button) findViewById(R.id.input_button);
@@ -181,26 +186,26 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
         }
         if(destination != null){
             if(locationSelected){
-                if(compareDistance(currentLocation, destination)<20 && !reachedDestination){
+                if(compareDistance(currentLocation, destination)<30 && !reachedDestination){
                     reachedDestination = true;
                     ((TextView)findViewById(R.id.message_text)).setText("Great! now make it back to where you started!");
                 }
                 else if(compareDistance(currentLocation, startLocation)<30 && reachedDestination){
                     ((TextView)findViewById(R.id.message_text)).setText("You made it! Finish the quest to get your reward!");
                     Button inputButton = (Button)findViewById(R.id.input_button);
+                    Button returnButton = (Button)findViewById(R.id.finish_button);
                     returnedToStart = true;
+                    returnButton.setEnabled(false);
                     inputButton.setEnabled(true);
                     inputButton.setOnClickListener(this::finishWorkout);
                 }
             }
-            else{
-                if(compareDistance(currentLocation, checkpointLocation) > 15){
-                    if(compareDistance(currentLocation, destination) < 450 || compareDistance(currentLocation, destination) > 550){
-                        destination = null;
-                    }
-                    checkpointLocation = currentLocation;
-                    drawMap();
+            if(compareDistance(currentLocation, checkpointLocation) > 15){
+                if(checkInRange(destination, 50) && !locationSelected){
+                    destination = null;
                 }
+                checkpointLocation = currentLocation;
+                drawMap();
             }
         }
     }
@@ -213,6 +218,10 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
         locationB.setLatitude(dist2.latitude);
         locationB.setLongitude(dist2.longitude);
         return locationA.distanceTo(locationB);
+    }
+
+    private boolean checkInRange(LatLng range, int margin){
+        return compareDistance(currentLocation, range) > (currentWorkout.distance*1000)-margin && compareDistance(currentLocation, range) < (currentWorkout.distance*1000)+margin;
     }
 
     public void finishWorkout(View view){
