@@ -21,7 +21,7 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference workoutRef = database.getReference().child("quests").child("strength");
     private StrengthWorkoutHelper currentWorkout = new StrengthWorkoutHelper();
-//
+
     private AnimView animView;
 
     private Anim anim;
@@ -31,12 +31,16 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
     private TextView storyView;
     private TextView workoutView;
 
-//
+    //
+    private ViewGroup containerView;
+
+    //
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strength_workout);
-    //
+    
         storyView = (TextView) findViewById(R.id.story_text);
         workoutView = (TextView) findViewById(R.id.workout_steps);
 
@@ -50,7 +54,10 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
 
         anim = animView.getAnim( );
 
-    //
+        //
+        containerView = (LinearLayout) findViewById(R.id.container);
+        containerView.addView(animView);
+        //
         int questLevel = Profile.getProfile().getsQuest();
 
         workoutRef.child(""+questLevel).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
