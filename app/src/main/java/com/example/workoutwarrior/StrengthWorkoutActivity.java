@@ -21,15 +21,15 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference workoutRef = database.getReference().child("quests").child("strength");
     private StrengthWorkoutHelper currentWorkout = new StrengthWorkoutHelper();
-
-
 //
     private AnimView animView;
 
     private Anim anim;
 
-    private int [ ] TARGETS = { R.drawable.push_up_down, R.drawable.push_up_mid,
-            R.drawable.push_up_up, R.drawable.push_up_mid };
+    private int [ ] TARGETS = { R.drawable.push_up_down, R.drawable.push_up_mid, R.drawable.push_up_up, R.drawable.push_up_mid };
+
+    private TextView storyView;
+    private TextView workoutView;
 
 //
     @Override
@@ -37,11 +37,12 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strength_workout);
     //
+        storyView = (TextView) findViewById(R.id.story_text);
+        workoutView = (TextView) findViewById(R.id.workout_steps);
 
         Point size = new Point( );
         getWindowManager( ).getDefaultDisplay( ).getSize( size );
         animView = new AnimView( this, size.x, size.y ,TARGETS );
-        setContentView( animView );
 
         Timer animTimer = new Timer( );
         animTimer.schedule( new AnimTimerTask( animView ),
@@ -78,30 +79,27 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
     }
 
     private void populateData(int questLevel){
-        TextView storyView = (TextView)findViewById(R.id.story_text);
-        TextView workoutView = (TextView)findViewById(R.id.workout_steps);
-
-        setStory(storyView,questLevel);
-        setWorkout(workoutView);
+        setStory(questLevel);
+        setWorkout();
     }
 
-    private void setStory(TextView v,int level){
+    private void setStory(int level){
         workoutRef.child(""+level).child("story").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
-                    v.setText(String.valueOf(task.getResult().getValue()));
+                    storyView.setText(String.valueOf(task.getResult().getValue()));
                 }
             }
         });
     }
 
-    private void setWorkout(TextView v){
+    private void setWorkout(){
         workoutRef.child("-1").child("Exercises").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()){
-                    v.setText(String.valueOf(task.getResult().getValue()));
+                    workoutView.setText(String.valueOf(task.getResult().getValue()));
                 }
             }
         });
