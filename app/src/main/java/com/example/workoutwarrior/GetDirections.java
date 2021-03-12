@@ -26,8 +26,8 @@ public class GetDirections extends AsyncTask<Object, String, String> {
     @Override
     protected String doInBackground(Object... params) {
         map = (GoogleMap) params[0];
-        String stringUrl = "https://maps.googleapis.com/maps/api/directions/json?origin=" + params[2] + "&destination=" + params[3] + "&key="+params[1]  +"&sensor=false";
         String output = null;
+        String stringUrl = "https://maps.googleapis.com/maps/api/directions/json?origin=" + params[2] + "&destination=" + params[3] + "&mode=walking" +"&key="+params[1]  +"&sensor=false";
         StringBuilder response = new StringBuilder();
         try {
             URL url = new URL(stringUrl);
@@ -67,7 +67,7 @@ public class GetDirections extends AsyncTask<Object, String, String> {
             for(int i=0;i<pathPoints.size()-1;i++){
                 LatLng src = pathPoints.get(i);
                 LatLng dest = pathPoints.get(i+1);
-                Polyline line = map.addPolyline(new PolylineOptions().add(src,dest).width(2).color(Color.RED).geodesic(true));
+                Polyline line = map.addPolyline(new PolylineOptions().add(src,dest).width(5).color(Color.RED).geodesic(true));
             }
         }
         catch (Exception e){
