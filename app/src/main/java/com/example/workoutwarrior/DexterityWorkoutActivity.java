@@ -50,6 +50,7 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
 
     boolean locationSelected = false;
     boolean reachedDestination = false;
+    boolean returnedToStart = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,11 +180,17 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
                 mapFragment.getMapAsync(this);
         }
         if(destination != null){
-            Log.e("OUTPUT", String.valueOf(compareDistance(currentLocation, destination)));
             if(locationSelected){
                 if(compareDistance(currentLocation, destination)<20 && !reachedDestination){
                     reachedDestination = true;
                     ((TextView)findViewById(R.id.message_text)).setText("Great! now make it back to where you started!");
+                }
+                else if(compareDistance(currentLocation, startLocation)<30 && reachedDestination){
+                    ((TextView)findViewById(R.id.message_text)).setText("You made it! Finish the quest to get your reward!");
+                    Button inputButton = (Button)findViewById(R.id.input_button);
+                    returnedToStart = true;
+                    inputButton.setEnabled(true);
+                    inputButton.setOnClickListener(this::finishWorkout);
                 }
             }
             else{

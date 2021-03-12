@@ -29,7 +29,6 @@ import java.util.Dictionary;
  * Manages login screen
  */
 public class LoginActivity extends AppCompatActivity {
-    private DatabaseManagerDeprecated dbManager;
 
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference dRef = database.getReference();
@@ -38,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbManager = new DatabaseManagerDeprecated(this);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.login);
 

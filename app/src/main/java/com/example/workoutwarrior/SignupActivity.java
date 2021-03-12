@@ -27,8 +27,6 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class SignupActivity extends AppCompatActivity {
 
-    private DatabaseManagerDeprecated dbManager;
-
     private FirebaseAuth mAuth;
     private FirebaseDatabase db;
 
@@ -36,7 +34,6 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbManager = new DatabaseManagerDeprecated(this);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         setContentView(R.layout.signup);
