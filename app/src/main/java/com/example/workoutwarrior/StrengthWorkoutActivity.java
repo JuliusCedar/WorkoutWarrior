@@ -8,6 +8,8 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
