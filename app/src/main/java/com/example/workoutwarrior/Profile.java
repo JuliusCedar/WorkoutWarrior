@@ -7,6 +7,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class Profile {
 
     private static Profile INSTANCE = null;
@@ -69,6 +71,25 @@ public class Profile {
     public int getdQuest(){ return data.dQuest; }
 
     public int getcQuest(){ return data.cQuest; }
+
+
+    /*
+     * Tries to complete the achievement, returns bool whether or not it was just completed
+     */
+    public boolean completeAchievement(String achievement){
+        if (!hasCompletedAchievement(achievement)) {
+            data.achievements.add(achievement);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasCompletedAchievement(String achievement){
+        return data.achievements.contains(achievement);
+    }
+
+    public ArrayList<String> getAchievements(){ return data.achievements; }
+
 
     public void setData(ProfileData newData){
         data = newData;

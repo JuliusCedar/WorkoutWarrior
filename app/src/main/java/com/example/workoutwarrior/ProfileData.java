@@ -1,5 +1,7 @@
 package com.example.workoutwarrior;
 
+import java.util.ArrayList;
+
 public class ProfileData{
 
     public ProfileData(){
@@ -14,6 +16,7 @@ public class ProfileData{
         sQuest = 0;
         dQuest = 0;
         cQuest = 0;
+        achievements = new ArrayList<>();
     }
 
     public String name;
@@ -24,4 +27,6 @@ public class ProfileData{
     public int sQuest;
     public int dQuest;
     public int cQuest;
+
+    public ArrayList<String> achievements;
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,10 +50,15 @@ public class ConstitutionWorkoutActivity extends AppCompatActivity {
     }
 
     public void quitWorkout(View v){
+        if (Profile.getProfile().completeAchievement("Quiter - You gave up on a quest :p"))
+            Toast.makeText(getApplicationContext(), "Completed achievement: Quiter", Toast.LENGTH_SHORT).show();
+        Profile.getProfile().saveToDatabase();
         finish();
     }
 
     public void finishWorkout(View v){
+        if (Profile.getProfile().completeAchievement("First steps - You completed a quest!"))
+            Toast.makeText(getApplicationContext(), "Completed achievement: First steps", Toast.LENGTH_SHORT).show();
         Profile.getProfile().finishCQuest();
         Profile.getProfile().addConstitutionExp(currentWorkout.experience);
         Profile.getProfile().saveToDatabase();

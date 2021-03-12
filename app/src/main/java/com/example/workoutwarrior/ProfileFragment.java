@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +31,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     View dexBar;
     View conBar;
 
+    LinearLayout achievements_list_layout;
+
     ImageView profileImage;
 
     @Nullable
@@ -41,6 +46,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         strBar = view.findViewById(R.id.strength_bar);
         dexBar = view.findViewById(R.id.dexterity_bar);
         conBar = view.findViewById(R.id.constitution_bar);
+
+        achievements_list_layout = view.findViewById(R.id.achievements_list_layout);
 
         profileImage = (ImageView) view.findViewById(R.id.profile_image);
         profileImage.setOnClickListener(this);
@@ -72,11 +79,34 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         setStatBar(strBar, profile.getStrength());
         setStatBar(dexBar, profile.getDexterity());
         setStatBar(conBar, profile.getConstitution());
+
+        // populate achievements list
+        for (String achievement : profile.getAchievements()){
+            Button ach = new Button(getContext());
+            ach.setText(achievement);
+
+            // temporary? achievement
+            ach.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (Profile.getProfile().completeAchievement("Achieveception - Get an achievement from an achievement"))
+                        Toast.makeText(getContext(), "Completed achievement: Achieveception", Toast.LENGTH_SHORT).show();
+                    Profile.getProfile().saveToDatabase();
+                }
+            });
+
+            achievements_list_layout.addView(ach);
+        }
     }
 
     @Override
     public void onClick(View v) {
         Log.i("Profile Image", "Clicked");
+
+        // temporary? achievement
+        if (Profile.getProfile().completeAchievement("Who's that? - try to update your image"))
+            Toast.makeText(getContext(), "Completed achievement: Who's that?", Toast.LENGTH_SHORT).show();
+        Profile.getProfile().saveToDatabase();
     }
 
 }

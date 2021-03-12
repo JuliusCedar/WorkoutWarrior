@@ -31,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_layout, profile).commit();
 
     }
-    public void ShowEquip(View view) {
-        Fragment equipment = new EquipmentFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_layout, equipment).commit();
-    }
     public void ShowWorkouts(View view) {
         Fragment workout = new WorkoutFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_layout, workout).commit();

@@ -75,11 +75,31 @@ public class WorkoutFragment extends Fragment {
                 if(task.isSuccessful()){
                     // if got result, set text depending on if the quest is completed
                     String name = String.valueOf(task.getResult().getValue());
-                    Log.d("Micah-c", "'" + name + "'");
-                    if(!name.equals("null"))
+
+                    // not finished
+                    if(!name.equals("null")) {
+                        button.setEnabled(true);
                         button.setText(name);
-                    else
+                    }
+
+                    // finished all
+                    else {
+                        button.setEnabled(false);
                         button.setText("All completed!");
+
+                        // do achievement
+                        if (Profile.getProfile().completeAchievement("OP " + workoutType + " - You maxed out your " + workoutType + "!"))
+                            Toast.makeText(getContext(), "Completed achievement: OP " + workoutType, Toast.LENGTH_SHORT).show();
+
+                        // completely done? achievement
+                        if (Profile.getProfile().hasCompletedAchievement("OP strength - You maxed out your strength!") &&
+                                Profile.getProfile().hasCompletedAchievement("OP constitution - You maxed out your constitution!") &&
+                                Profile.getProfile().hasCompletedAchievement("OP dexterity - You maxed out your dexterity!"))
+                            if (Profile.getProfile().completeAchievement("Now what? - You completed everything!"))
+                                Toast.makeText(getContext(), "Completed achievement: Now what?", Toast.LENGTH_SHORT).show();
+
+                        Profile.getProfile().saveToDatabase();
+                    }
                 } else{
                     // if failed to get task (client is offline error) TODO: handle
                     getActivity().finish();

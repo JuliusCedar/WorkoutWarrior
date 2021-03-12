@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -174,7 +175,8 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
         currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
         if(firstLoc){
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+            if(mapFragment != null)
+                mapFragment.getMapAsync(this);
         }
         if(destination != null){
             Log.e("OUTPUT", String.valueOf(compareDistance(currentLocation, destination)));
@@ -207,6 +209,8 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     }
 
     public void finishWorkout(View view){
+        if (Profile.getProfile().completeAchievement("First steps - You completed a quest!"))
+            Toast.makeText(getApplicationContext(), "Completed achievement: First steps", Toast.LENGTH_SHORT).show();
         Profile.getProfile().finishDQuest();
         Profile.getProfile().addDexterityExp(currentWorkout.experience);
         Profile.getProfile().saveToDatabase();
@@ -214,6 +218,9 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     }
 
     public void goBack(View view){
+        if (Profile.getProfile().completeAchievement("Quiter - You gave up on a quest :p"))
+            Toast.makeText(getApplicationContext(), "Completed achievement: Quiter", Toast.LENGTH_SHORT).show();
+        Profile.getProfile().saveToDatabase();
         finish();
     }
 

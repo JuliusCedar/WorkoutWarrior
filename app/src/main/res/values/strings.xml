@@ -19,5 +19,8 @@
     <string name="sign_up">Sign up</string>
     <string name="email">Email</string>
     <string name="incorrect_login_information">Incorrect Login Information</string>
+    <string name="profile">Profile</string>
+    <string name="workouts">Workouts</string>
+    <string name="logout">Logout</string>
 
 </resources>

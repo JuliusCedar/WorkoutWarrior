@@ -29,17 +29,7 @@
             android:padding="0dp"
             android:backgroundTint="@color/dark_blue_grey"
             android:onClick="ShowProfile"
-            android:text="Profile"></Button>
-
-        <Button
-            android:id="@+id/equipment_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="0dp"
-            android:backgroundTint="@color/dark_blue_grey"
-            android:onClick="ShowEquip"
-            android:text="Equipment"></Button>
+            android:text="@string/profile" />
 
         <Button
             android:id="@+id/workouts_button"
@@ -49,7 +39,7 @@
             android:padding="0dp"
             android:backgroundTint="@color/dark_blue_grey"
             android:onClick="ShowWorkouts"
-            android:text="Workouts"></Button>
+            android:text="@string/workouts" />
 
         <Button
             android:id="@+id/login_button"
@@ -59,7 +49,7 @@
             android:padding="0dp"
             android:backgroundTint="@color/dark_blue_grey"
             android:onClick="Logout"
-            android:text="Logout"></Button>
+            android:text="@string/logout" />
     </LinearLayout>
 
 </LinearLayout>

@@ -131,6 +131,29 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:layout_weight="1.7"
-        android:background="@color/dark_blue_grey"></LinearLayout>
+        android:background="@color/dark_blue_grey"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Achievements:"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:textSize="20sp" />
+
+        <ScrollView
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/achievements_list_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

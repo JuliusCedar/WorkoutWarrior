@@ -34,7 +34,7 @@
 
         <activity
             android:name=".DexterityWorkoutActivity"
-            android:label="@string/title_activity_dexterity_workout"></activity>
+            android:label="@string/title_activity_dexterity_workout" />
         <activity android:name=".ConstitutionWorkoutActivity" />
         <activity android:name=".StrengthWorkoutActivity" />
         <activity android:name=".LoginActivity">
