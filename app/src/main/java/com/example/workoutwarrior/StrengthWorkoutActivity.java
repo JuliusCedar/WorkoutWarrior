@@ -1,90 +1,58 @@
 package com.example.workoutwarrior;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+public class AnimView extends View{
 
-public class StrengthWorkoutActivity extends AppCompatActivity {
-    private static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private static DatabaseReference workoutRef = database.getReference().child("quests").child("strength");
-    private StrengthWorkoutHelper currentWorkout = new StrengthWorkoutHelper();
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_strength_workout);
+    public static int DELTA_TIME = 100;
+    private int [ ] TARGETS;
+    private Paint paint;
+    private Bitmap [ ] ducks;
+    private int duckFrame;
 
+    private Anim anim;
 
-        int questLevel = Profile.getProfile().getsQuest();
+    public AnimView(Context context, int width, int height, int [] TARGET ) {
+        super( context );
 
-        workoutRef.child(""+questLevel).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(!task.isSuccessful()){
-                    //Todo: handle failure
-                }
-                else{
-                    currentWorkout = task.getResult().getValue((StrengthWorkoutHelper.class));
-                    populateData(questLevel);
-                }
-            }
-        });
+        TARGETS = TARGET;
+        ducks = new Bitmap[TARGETS.length];
+        for( int i = 0; i < ducks.length; i++ )
+            ducks[i] = BitmapFactory.decodeResource( getResources( ), TARGETS[i] );
+        float scale = ( ( float ) width / ( ducks[0].getWidth( ) * 5 ) );
+
+        Rect duckRect = new Rect( 0, 0, width, (int) (height)/4);
+        anim = new Anim( duckRect);
+
+        anim.setDeltaTime( DELTA_TIME );
+
+        paint = new Paint( );
+        paint.setColor( 0xFF000000 );
+        paint.setAntiAlias( true );
+
     }
 
-    public void quitWorkout(View v){
-        if (Profile.getProfile().completeAchievement("Quiter - You gave up on a quest :p"))
-            Toast.makeText(getApplicationContext(), "Completed achievement: Quiter", Toast.LENGTH_SHORT).show();
-        Profile.getProfile().saveToDatabase();
-        finish();
+    public void onDraw( Canvas canvas ) {
+        super.onDraw( canvas );
+
+        // draw animated duck
+        duckFrame = ( duckFrame + 1 ) % ducks.length;
+        if( false )
+            canvas.drawBitmap( ducks[0], null,
+                    anim.getDuckRect( ), paint );
+        else
+            canvas.drawBitmap( ducks[duckFrame], null,
+                    anim.getDuckRect( ), paint );
     }
 
-    public void finishWorkout(View v){
-        if (Profile.getProfile().completeAchievement("First steps - You completed a quest!"))
-            Toast.makeText(getApplicationContext(), "Completed achievement: First steps", Toast.LENGTH_SHORT).show();
-        Profile.getProfile().finishSQuest();
-        Profile.getProfile().addStrengthExp(currentWorkout.experience);
-        Profile.getProfile().saveToDatabase();
-        finish();
+    public Anim getAnim( ) {
+        return anim;
     }
-
-    private void populateData(int questLevel){
-        TextView storyView = (TextView)findViewById(R.id.story_text);
-        TextView workoutView = (TextView)findViewById(R.id.workout_steps);
-
-        setStory(storyView,questLevel);
-        setWorkout(workoutView);
-    }
-
-    private void setStory(TextView v,int level){
-        workoutRef.child(""+level).child("story").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    v.setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
-    }
-
-    private void setWorkout(TextView v){
-        workoutRef.child("-1").child("Exercises").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful()){
-                    v.setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
-    }
-
 
 }
