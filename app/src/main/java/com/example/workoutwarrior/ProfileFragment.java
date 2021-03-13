@@ -15,10 +15,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.io.ByteArrayOutputStream;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -39,6 +54,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     ImageView profileImage;
 
+    private FirebaseAuth mAuth;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,6 +72,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         profileImage = (ImageView) view.findViewById(R.id.profile_image);
         profileImage.setOnClickListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
 
         return view;
 
@@ -122,9 +141,36 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             Bundle extras = data.getExtras();
             bitmap = (Bitmap) extras.get("data");
             profileImage.setImageBitmap(bitmap);
+            saveProfilePhoto(bitmap);
         } else {
             Log.i("Fail", "photo");
         }
+    }
+
+    public void saveProfilePhoto(Bitmap bitmap) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://workoutwarrior.appspot.com");
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        StorageReference testRef = storageRef.child(user.getUid());
+
+        ByteArrayOutputStream image = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, image);
+        byte[] data = image.toByteArray();
+
+        UploadTask uploadTask = testRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("Add Image To Firebase", "Failed");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.i("Add Image To Firebase", "Success");
+            }
+        });
 
     }
 
