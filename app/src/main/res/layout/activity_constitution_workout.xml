@@ -10,12 +10,13 @@
     android:orientation="vertical"
     tools:context=".ConstitutionWorkoutActivity">
 
-    <View
+    <LinearLayout
         android:id="@+id/animation_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/blue_grey">
-    </View>
+        android:background="@color/blue_grey"
+        android:orientation="vertical">
+    </LinearLayout>
 
     <TextView
         android:id="@+id/story_text"

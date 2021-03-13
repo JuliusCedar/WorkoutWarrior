@@ -12,13 +12,14 @@
     android:background="@color/blue_grey">
 
 
-    <View
+    <LinearLayout
         android:id="@+id/animation_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/blue_grey">
+        android:background="@color/blue_grey"
+        android:orientation="vertical">
 
-    </View>
+    </LinearLayout>
 
 
     <TextView
