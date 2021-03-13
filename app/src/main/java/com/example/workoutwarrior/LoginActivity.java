@@ -150,32 +150,6 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             badLogin.setVisibility(View.VISIBLE);
         }
-
-        loadProfilePhoto(user.getUid());
-    }
-
-    public void loadProfilePhoto(String uid) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-
-        StorageReference storageRef = storage.getReference();
-        StorageReference storagePath = storageRef.child(uid);
-
-        final long ONE_MEGABYTE = 1024 * 1024;
-        storagePath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                View inflatedView = getLayoutInflater().inflate(R.layout.fragment_profile, null);
-                ImageView profile = (ImageView) inflatedView.findViewById(R.id.profile_image);
-                profile.setImageBitmap(bitmap);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.i("Load Profile Image", "Failed");
-            }
-        });
-
     }
 
     /* signup

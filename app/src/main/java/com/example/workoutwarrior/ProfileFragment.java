@@ -2,7 +2,6 @@ package com.example.workoutwarrior;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,21 +17,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -106,26 +100,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         setStatBar(dexBar, profile.getDexterity());
         setStatBar(conBar, profile.getConstitution());
 
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-
-        StorageReference storageRef = storage.getReference();
         FirebaseUser user = mAuth.getCurrentUser();
-        StorageReference storagePath = storageRef.child(user.getUid());
-
-        final long ONE_MEGABYTE = 1024 * 1024;
-        storagePath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                profileImage.setImageBitmap(bitmap);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.i("Load Profile Image", "Failed");
-            }
-        });
+        setProfilePhoto(user.getUid());
 
         // populate achievements list
         for (String achievement : profile.getAchievements()){
@@ -184,19 +160,20 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    // Saves a new profile image taken using the camera app
     public void saveProfilePhoto(Bitmap bitmap) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageRef = storage.getReferenceFromUrl("gs://workoutwarrior.appspot.com");
 
         FirebaseUser user = mAuth.getCurrentUser();
-        StorageReference testRef = storageRef.child(user.getUid());
+        StorageReference storagePath = storageRef.child(user.getUid());
 
         ByteArrayOutputStream image = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, image);
         byte[] data = image.toByteArray();
 
-        UploadTask uploadTask = testRef.putBytes(data);
+        UploadTask uploadTask = storagePath.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -208,7 +185,27 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 Log.i("Add Image To Firebase", "Success");
             }
         });
+    }
 
+    // Gets a user's profile photo and displays it
+    public void setProfilePhoto(String uid) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference storagePath = storageRef.child(uid);
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storagePath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                profileImage.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("Load Profile Image", "Failed");
+            }
+        });
     }
 
 }
