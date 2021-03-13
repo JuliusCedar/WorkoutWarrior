@@ -1,7 +1,9 @@
 package com.example.workoutwarrior;
 
 import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST = 1;
@@ -107,6 +111,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (Profile.getProfile().completeAchievement("Who's that? - try to update your image"))
             Toast.makeText(getContext(), "Completed achievement: Who's that?", Toast.LENGTH_SHORT).show();
         Profile.getProfile().saveToDatabase();
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(takePictureIntent, PHOTO_REQUEST);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PHOTO_REQUEST && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            bitmap = (Bitmap) extras.get("data");
+            profileImage.setImageBitmap(bitmap);
+        } else {
+            Log.i("Fail", "photo");
+        }
+
     }
 
 }
