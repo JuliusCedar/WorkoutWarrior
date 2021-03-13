@@ -69,7 +69,6 @@ public class SignupActivity extends AppCompatActivity {
     /* Upon successfully signing up the players information is added to the db
      */
     public void addNewUser(String email, String password) {
-        Log.d("Create Account: ", email);
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -94,15 +93,8 @@ public class SignupActivity extends AppCompatActivity {
         DatabaseReference profilesRef = db.getReference("profiles");
 
         EditText name = (EditText) findViewById(R.id.name_signup);
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.class_group);
-        RadioButton button = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
-
-        String email = user.getEmail();
         String characterName = name.getText().toString();
-        String characterClass = button.getText().toString();
         
         profilesRef.child(user.getUid()).setValue(new ProfileData(characterName));
-
-        Log.i("adding to db: ", email + characterClass + characterName);
     }
 }

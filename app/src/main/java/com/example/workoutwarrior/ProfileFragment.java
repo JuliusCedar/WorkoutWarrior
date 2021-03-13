@@ -103,6 +103,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         FirebaseUser user = mAuth.getCurrentUser();
         setProfilePhoto(user.getUid());
 
+        // clear achievements list
+        achievements_list_layout.removeAllViews();
+
         // populate achievements list
         for (String achievement : profile.getAchievements()){
             Button ach = new Button(getContext());
