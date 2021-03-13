@@ -1,8 +1,11 @@
 package com.example.workoutwarrior;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,12 +42,12 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST = 1;
-    private ImageView imageView;
     private Bitmap bitmap;
 
     TextView playerName;
     TextView playerClass;
     TextView playerLevel;
+    ImageView profile;
 
     View strBar;
     View dexBar;
@@ -103,18 +106,52 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         setStatBar(dexBar, profile.getDexterity());
         setStatBar(conBar, profile.getConstitution());
 
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        StorageReference storageRef = storage.getReference();
+        FirebaseUser user = mAuth.getCurrentUser();
+        StorageReference storagePath = storageRef.child(user.getUid());
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storagePath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                profileImage.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("Load Profile Image", "Failed");
+            }
+        });
+
         // populate achievements list
         for (String achievement : profile.getAchievements()){
             Button ach = new Button(getContext());
-            ach.setText(achievement);
+            ach.setText(achievement.split(" - ")[0]);
 
             // temporary? achievement
             ach.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (Profile.getProfile().completeAchievement("Achieveception - Get an achievement from an achievement"))
-                        Toast.makeText(getContext(), "Completed achievement: Achieveception", Toast.LENGTH_SHORT).show();
-                    Profile.getProfile().saveToDatabase();
+                    // show popup
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage(achievement.split(" - ")[1])
+                            .setTitle(achievement.split(" - ")[0]);
+                    builder.setPositiveButton("Ok!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            // give achievement if needed
+                            if (Profile.getProfile().completeAchievement("Achieveception - Get an achievement from an achievement"))
+                                Toast.makeText(getContext(), "Completed achievement: Achieveception", Toast.LENGTH_SHORT).show();
+                            Profile.getProfile().saveToDatabase();
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
 
