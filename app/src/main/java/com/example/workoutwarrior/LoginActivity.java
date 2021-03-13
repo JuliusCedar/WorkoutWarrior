@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
+import java.util.concurrent.TimeUnit;
 import java.io.ByteArrayInputStream;
 
 import java.util.Dictionary;
@@ -44,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference dRef = database.getReference();
     private FirebaseAuth mAuth;
+
+    private ImageView profilePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,18 +157,17 @@ public class LoginActivity extends AppCompatActivity {
     public void loadProfilePhoto(String uid) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
-
         StorageReference storageRef = storage.getReference();
-        StorageReference storagePath = storageRef.child("images/"+uid);
-        StorageReference gsReference = storage.getReferenceFromUrl("gs://workoutwarrior.appspot.com/" + uid);
+        StorageReference storagePath = storageRef.child(uid);
 
         final long ONE_MEGABYTE = 1024 * 1024;
         storagePath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                Bitmap photo = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                ImageView profile = (ImageView) findViewById(R.id.profile_image);
-                profile.setImageBitmap(photo);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                View inflatedView = getLayoutInflater().inflate(R.layout.fragment_profile, null);
+                ImageView profile = (ImageView) inflatedView.findViewById(R.id.profile_image);
+                profile.setImageBitmap(bitmap);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -173,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("Load Profile Image", "Failed");
             }
         });
+
     }
 
     /* signup

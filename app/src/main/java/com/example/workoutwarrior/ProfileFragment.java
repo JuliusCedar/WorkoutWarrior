@@ -39,7 +39,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST = 1;
-    private ImageView imageView;
     private Bitmap bitmap;
 
     TextView playerName;
