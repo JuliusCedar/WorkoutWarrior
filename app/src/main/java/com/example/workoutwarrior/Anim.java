@@ -8,12 +8,12 @@ public class Anim {
 
     private int deltaTime; // in milliSeconds
 
-    private Rect duckRect;
-    private int duckWidth;
-    private int duckHeight;
+    private Rect animRect;
+    private int animWidth;
+    private int animHeight;
 
-    public Anim( Rect newDuckRect) {
-        setDuckRect( newDuckRect );
+    public Anim( Rect newAnimRect) {
+        setAnimRect( newAnimRect );
     }
 
     public void setDeltaTime( int newDeltaTime ) {
@@ -21,15 +21,15 @@ public class Anim {
             deltaTime = newDeltaTime;
     }
 
-    public Rect getDuckRect( ) {
-        return duckRect;
+    public Rect getAnimRect( ) {
+        return animRect;
     }
 
-    public void setDuckRect( Rect newDuckRect ) {
-        if( newDuckRect != null ) {
-            duckWidth = newDuckRect.right - newDuckRect.left;
-            duckHeight = newDuckRect.bottom - newDuckRect.top;
-            duckRect = newDuckRect;
+    public void setAnimRect( Rect newAnimRect ) {
+        if( newAnimRect != null ) {
+            animWidth = newAnimRect.right - newAnimRect.left;
+            animHeight = newAnimRect.bottom - newAnimRect.top;
+            animRect = newAnimRect;
         }
     }
 

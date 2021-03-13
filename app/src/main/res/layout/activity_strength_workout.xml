@@ -16,35 +16,50 @@
         android:id="@+id/animation_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="5dp"
         android:background="@color/blue_grey"
         android:orientation="vertical">
 
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/story_text"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/dark_grey"
+        android:layout_height="match_parent"
         android:layout_marginHorizontal="5dp"
         android:layout_marginTop="5dp"
-        android:textSize="24dp"
-        android:textColor="@color/light_grey"
-        android:padding="5dp"
-        android:gravity="center"/>
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
 
-    <TextView
-        android:id="@+id/workout_steps"
+        <TextView
+            android:id="@+id/story_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/dark_grey"
+            android:textSize="24dp"
+            android:textColor="@color/light_grey"
+            android:padding="5dp"
+            android:gravity="center"/>
+
+    </ScrollView>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:layout_margin="5dp"
-        android:background="@color/dark_blue_grey"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:scrollbars="vertical">
 
-    </TextView>
+        <TextView
+            android:id="@+id/workout_steps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/dark_blue_grey"
+            android:orientation="vertical"/>
+
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
