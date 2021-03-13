@@ -3,8 +3,11 @@ package com.example.workoutwarrior;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,16 +17,49 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Timer;
+
 public class ConstitutionWorkoutActivity extends AppCompatActivity {
+    //connections to database
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference workoutRef = database.getReference().child("quests").child("constitution");
-
     private ConstitutionWorkoutHelper currentWorkout;
+
+    //views for animation
+    private AnimView animView;
+    private Anim anim;
+    //pictures for the animations
+    private int [ ] TARGETS = { R.drawable.jumping_jack_down, R.drawable.jumping_jack_mid, R.drawable.jumping_jack_up, R.drawable.jumping_jack_mid };
+    //connections to xml to change text with database information
+    private TextView storyView;
+    private TextView workoutView;
+
+    private ViewGroup containerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constitution_workout);
+
+
+        storyView = (TextView) findViewById(R.id.story_text);
+        workoutView = (TextView) findViewById(R.id.workout_steps);
+
+        Point size = new Point( );
+        getWindowManager( ).getDefaultDisplay( ).getSize( size );
+        animView = new AnimView( this, size.x, size.y ,TARGETS );
+
+        Timer animTimer = new Timer( );
+        animTimer.schedule( new AnimTimerTask( animView ),
+                0, AnimView.DELTA_TIME );
+
+        anim = animView.getAnim( );
+
+
+        containerView = (LinearLayout) findViewById(R.id.animation_view);
+        containerView.addView(animView);
+
+
 
         workoutRef.child(""+Profile.getProfile().getsQuest()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -45,8 +81,8 @@ public class ConstitutionWorkoutActivity extends AppCompatActivity {
         TextView storyView = (TextView)findViewById(R.id.story_text);
         TextView workoutView = (TextView)findViewById(R.id.workout_steps);
 
-        setStory(storyView,questLevel);
-        setWorkout(workoutView);
+        setStory(questLevel);
+        setWorkout();
     }
 
     public void quitWorkout(View v){
@@ -65,23 +101,23 @@ public class ConstitutionWorkoutActivity extends AppCompatActivity {
         finish();
     }
 
-    private void setStory(TextView v,int level){
+    private void setStory(int level){
         workoutRef.child(""+level).child("story").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()){
-                    v.setText(String.valueOf(task.getResult().getValue()));
+                    storyView.setText(String.valueOf(task.getResult().getValue()));
                 }
             }
         });
     }
 
-    private void setWorkout(TextView v){
+    private void setWorkout(){
         workoutRef.child("-1").child("Exercises").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()){
-                    v.setText(String.valueOf(task.getResult().getValue()));
+                    workoutView.setText(String.valueOf(task.getResult().getValue()));
                 }
             }
         });

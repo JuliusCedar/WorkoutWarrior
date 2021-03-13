@@ -42,7 +42,7 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strength_workout);
-    
+
         storyView = (TextView) findViewById(R.id.story_text);
         workoutView = (TextView) findViewById(R.id.workout_steps);
 
@@ -51,13 +51,12 @@ public class StrengthWorkoutActivity extends AppCompatActivity {
         animView = new AnimView( this, size.x, size.y ,TARGETS );
 
         Timer animTimer = new Timer( );
-        animTimer.schedule( new AnimTimerTask( animView ),
-                0, AnimView.DELTA_TIME );
+        animTimer.schedule( new AnimTimerTask( animView ), 0, AnimView.DELTA_TIME );
 
         anim = animView.getAnim( );
 
         //
-        containerView = (LinearLayout) findViewById(R.id.container);
+        containerView = (LinearLayout) findViewById(R.id.animation_view);
         containerView.addView(animView);
         //
         int questLevel = Profile.getProfile().getsQuest();
