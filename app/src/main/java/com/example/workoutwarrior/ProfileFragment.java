@@ -1,5 +1,7 @@
 package com.example.workoutwarrior;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -87,15 +89,28 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         // populate achievements list
         for (String achievement : profile.getAchievements()){
             Button ach = new Button(getContext());
-            ach.setText(achievement);
+            ach.setText(achievement.split(" - ")[0]);
 
             // temporary? achievement
             ach.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (Profile.getProfile().completeAchievement("Achieveception - Get an achievement from an achievement"))
-                        Toast.makeText(getContext(), "Completed achievement: Achieveception", Toast.LENGTH_SHORT).show();
-                    Profile.getProfile().saveToDatabase();
+                    // show popup
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage(achievement.split(" - ")[1])
+                            .setTitle(achievement.split(" - ")[0]);
+                    builder.setPositiveButton("Ok!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            // give achievement if needed
+                            if (Profile.getProfile().completeAchievement("Achieveception - Get an achievement from an achievement"))
+                                Toast.makeText(getContext(), "Completed achievement: Achieveception", Toast.LENGTH_SHORT).show();
+                            Profile.getProfile().saveToDatabase();
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
 
