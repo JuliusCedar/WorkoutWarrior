@@ -1,6 +1,7 @@
 package com.example.workoutwarrior;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +23,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import android.graphics.Bitmap;
+import android.widget.ImageView;
+import java.util.concurrent.TimeUnit;
+import java.io.ByteArrayInputStream;
+
 import java.util.Dictionary;
+
+import io.grpc.Context;
 
 
 /* LoginActivity
@@ -33,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference dRef = database.getReference();
     private FirebaseAuth mAuth;
+
+    private ImageView profilePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +150,32 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             badLogin.setVisibility(View.VISIBLE);
         }
+
+        loadProfilePhoto(user.getUid());
+    }
+
+    public void loadProfilePhoto(String uid) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        StorageReference storageRef = storage.getReference();
+        StorageReference storagePath = storageRef.child(uid);
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storagePath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                View inflatedView = getLayoutInflater().inflate(R.layout.fragment_profile, null);
+                ImageView profile = (ImageView) inflatedView.findViewById(R.id.profile_image);
+                profile.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("Load Profile Image", "Failed");
+            }
+        });
+
     }
 
     /* signup

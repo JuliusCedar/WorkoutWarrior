@@ -56,7 +56,7 @@ public class ConstitutionWorkoutActivity extends AppCompatActivity {
         anim = animView.getAnim( );
 
 
-        containerView = (LinearLayout) findViewById(R.id.container);
+        containerView = (LinearLayout) findViewById(R.id.animation_view);
         containerView.addView(animView);
 
 

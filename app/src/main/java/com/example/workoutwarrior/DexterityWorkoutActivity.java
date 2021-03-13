@@ -140,7 +140,7 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     private void drawMap(){
         mMap.clear();
         if(!locationSelected){
-            mMap.addCircle(new CircleOptions().center(currentLocation).radius(currentWorkout.distance*1000));
+            mMap.addCircle(new CircleOptions().center(currentLocation).radius(currentWorkout.distance*500));
         }
         if(destination != null){
             if(!reachedDestination){
@@ -221,7 +221,7 @@ public class DexterityWorkoutActivity extends FragmentActivity implements OnMapR
     }
 
     private boolean checkInRange(LatLng range, int margin){
-        return compareDistance(currentLocation, range) > (currentWorkout.distance*1000)-margin && compareDistance(currentLocation, range) < (currentWorkout.distance*1000)+margin;
+        return compareDistance(currentLocation, range) > (currentWorkout.distance*500)-margin && compareDistance(currentLocation, range) < (currentWorkout.distance*500)+margin;
     }
 
     public void finishWorkout(View view){
